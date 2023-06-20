@@ -1,0 +1,75 @@
+
+
+.spc-common-table {
+  .spc-table-title {
+  }
+
+  table {
+    border: 1px solid #e9e9e9 !important;
+    tr:nth-child(odd) {
+      background-color: #f8f8f8;
+    }
+  }
+  .spc-table-paginator {
+    
+  }
+}
+
+.spc-table-actions {
+  border-left: 1px solid #e9e9e9 !important;
+
+  .spc-header-title {
+    text-align: center;
+  }
+  .spc-header-subtitles {
+    margin: 0;
+    letter-spacing: -0.2px;
+    color: #5d5d5d;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+  }
+  .spc-table-action-button {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    img {
+      cursor: pointer !important;
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .p-column-header-content {
+    display: block !important;
+  }
+}
+
+.card-table {
+  $width: null;
+  $height: null;
+  $padding: 20px;
+  @include card-component($width, $height, $padding);
+  max-height: 100%;
+  overflow: auto;
+  .title-area {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-bottom: 14px;
+    padding: 0px 30px;
+
+    .title-button {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      img {
+        margin-left: 5px;
+        width: 22px;
+      }
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}

@@ -1,0 +1,88 @@
+@import "./mixins.scss";
+
+.form-group {
+  @include generate-flex-container(column, null, null, null, null, 8px);
+
+  &row {
+    @include generate-flex-container(column, null, null, null, null, 8px);
+  }
+  &column {
+    @include generate-flex-container(column, null, null, null, null, 8px);
+  }
+
+  .error-message {
+    font-size: 0.7rem;
+    color: $alert-failed-color;
+    text-align: left;
+  }
+}
+
+.input-basic {
+  @include generate-input(
+    100%,
+    41px,
+    6px,
+    1px solid $input-color-border,
+    $secondary-color,
+    null,
+    15px
+  );
+
+  padding: 10px 20px;
+
+  &:focus {
+    outline: none;
+  }
+
+  &.error {
+    border: 1px solid $alert-failed-color;
+  }
+}
+
+.show-password {
+  position: relative;
+
+  .button-show_password {
+    position: absolute;
+    right: 0;
+    margin: 1px 1px;
+  }
+}
+
+.container-icon_error {
+  position: relative;
+
+  .icon-error {
+    position: absolute;
+    right: 0;
+    margin: 10px;
+    content: url($base-path-url-image + "icon-alert.png");
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.checkbox-basic {
+  width: 15px;
+  height: 15px;
+}
+
+.select-basic {
+  @include generate-input(
+    100%,
+    41px,
+    6px,
+    1px solid $input-color-border,
+    $secondary-color,
+    null,
+    15px
+  );
+
+  &:focus {
+    outline: none;
+  }
+
+  &.error {
+    border: 1px solid $alert-failed-color;
+  }
+}

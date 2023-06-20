@@ -1,0 +1,411 @@
+@import "./mixins.scss";
+@import "./variables.scss";
+
+// Layout formulario inicio de session
+
+.container-grid_login {
+  font-size: 16px;
+
+  $width-columns: 6fr, 3fr;
+  @include generate-grid(2, $width-columns);
+  height: 100vh;
+  width: 100vw;
+
+  // Seccion de imagen
+
+  .login-visualization {
+    width: 100%;
+    height: 100%;
+    background-image: url($base-path-url-image + "login-visualization-main.png");
+  }
+
+  // Seccion de formulario
+
+  .login-signIn {
+    @include generate-flex-container(column, null, null, null, null, 0.62em);
+    padding: 0.8em 3em;
+
+    // Contenedor iconos
+    .container-logos_signIn {
+      @include generate-flex-container(
+        column,
+        null,
+        null,
+        null,
+        center,
+        0.93em
+      );
+      padding-top: 0.31em;
+
+      img {
+        flex-basis: 100%;
+        flex-grow: 1;
+        max-width: 31%;
+      }
+
+      hr {
+        width: 100%;
+        border: none;
+        height: 0.5px;
+        color: #dfdede;
+        background-color: #dfdede;
+      }
+    }
+
+    // Contenedor formulario
+
+    .container-form_signIn {
+      @include generate-flex-container(column, null, null, null, null, null);
+
+      .content-form_signIn {
+        @include generate-flex-container(
+          column,
+          null,
+          null,
+          null,
+          null,
+          0.93em
+        );
+        margin-top: 1.25em;
+
+        .content-remember_data {
+          margin-top: 0.31em;
+
+          @include generate-flex-container(
+            row,
+            null,
+            null,
+            null,
+            center,
+            0.62em
+          );
+        }
+
+        .content-finally_form {
+          margin-top: 1em;
+
+          @include generate-flex-container(
+            column,
+            null,
+            null,
+            null,
+            center,
+            1.56em
+          );
+
+          .recovery-password {
+            @include generate-flex-container(
+              row,
+              null,
+              center,
+              null,
+              center,
+              0.62em
+            );
+          }
+        }
+
+        .content-version {
+          margin-top: 0.43em;
+
+          @include generate-flex-container(
+            column,
+            null,
+            null,
+            null,
+            center,
+            0.18em
+          );
+        }
+      }
+    }
+  }
+}
+
+.form-signIn {
+  @include generate-flex-container(column, null, null, null, null, 20px);
+}
+
+@media (max-width: 1024px) {
+  .container-grid_login {
+    font-size: 16px;
+
+    @include generate-grid(1, 1fr);
+    justify-items: center;
+    align-items: center;
+
+    .login-visualization {
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .login-signIn {
+      width: 80vw;
+      height: auto;
+      z-index: 1000;
+      background: #ffffff 0% 0% no-repeat padding-box;
+      border: 1px solid #707070;
+      border-radius: 22px;
+      padding: 1.5em;
+      overflow: auto;
+
+      .container-logos_signIn {
+        gap: 1.2rem;
+        padding: 0;
+
+        img {
+          max-width: 10em;
+        }
+
+        hr {
+          display: none;
+        }
+      }
+
+      .container-form_signIn {
+        margin-top: 1em;
+        @include generate-flex-container(column, null, null, null, null, null);
+
+        .content-form_signIn {
+          @include generate-flex-container(
+            column,
+            null,
+            null,
+            null,
+            null,
+            null
+          );
+          margin-top: 2em;
+
+          .content-form_input {
+            @include generate-flex-container(
+              column,
+              null,
+              null,
+              null,
+              null,
+              1em
+            );
+          }
+
+          .content-remember_data {
+            display: none;
+          }
+
+          .content-version {
+            display: none;
+          }
+
+          .content-finally_form {
+            gap: 0.7em;
+
+            .recovery-password {
+              margin-top: 1em;
+              @include generate-flex-container(
+                column,
+                null,
+                center,
+                null,
+                center,
+                0.5em
+              );
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1400px) {
+  .container-grid_login {
+    font-size: 20px;
+
+    .login-signIn {
+      padding: 2.5em 3em;
+
+      .container-logos_signIn {
+        img {
+          max-width: 50%;
+        }
+      }
+    }
+  }
+}
+
+.container-grid_recoveryPassword {
+  font-size: 16px;
+
+  height: 100vh;
+
+  @include generate-grid(1, 1fr);
+  justify-items: center;
+  align-items: center;
+
+  .recoveryPassword-visualization {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-image: url($base-path-url-image + "login-visualization-main.png");
+  }
+
+  .container-recoveryPassword {
+    width: 40vw;
+    height: auto;
+    z-index: 1000;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border-radius: 19px;
+    overflow: auto;
+
+    .container-close {
+      position: relative;
+      cursor: pointer;
+
+      span {
+        position: absolute;
+        top: 0;
+        right: 20px;
+        padding: 0.3em 0em;
+        color: $main-color;
+        font-size: 20px;
+      }
+    }
+
+    .container-form_recoveryPassword {
+      padding: 2.5em;
+      @include generate-flex-container(
+        column,
+        null,
+        center,
+        null,
+        center,
+        1.2em
+      );
+    }
+
+    .form-recoveryPassword {
+      @include generate-flex-container(column, null, null, null, null, 1.5em);
+      width: 100%;
+    }
+
+    hr {
+      width: 100%;
+      border: none;
+      height: 0.5px;
+      color: #dfdede;
+      background-color: #dfdede;
+    }
+
+    .content-footer_recoveryPassword {
+      padding: 0.5em 1em 1.5em 1em;
+      @include generate-flex-container(row, wrap, null, null, center, 1.5em);
+
+      .container-buttons {
+        @include generate-flex-container(row, null, null, null, center, 0.5em);
+        width: 60%;
+        flex: 1;
+
+        span {
+          cursor: pointer;
+          width: 50%;
+        }
+      }
+
+      .footer-img {
+        @include generate-flex-container(row, null, null, null, center, 1.5em);
+        width: 40%;
+
+        .img-sapiencia {
+          max-width: 5em;
+        }
+
+        .img-alcaldia {
+          max-width: 6em;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .container-grid_recoveryPassword {
+    font-size: 18px;
+
+    .container-recoveryPassword {
+      width: 90vw;
+      height: 80vh;
+
+      hr {
+        display: none;
+      }
+
+      .form-recoveryPassword {
+        @include generate-flex-container(column, null, null, null, null, 2.5em);
+        width: 100%;
+      }
+
+      .content-footer_recoveryPassword {
+        @include generate-flex-container(column, null, null, null, center, 2em);
+
+        .container-buttons {
+          width: 60%;
+
+          @include generate-flex-container(
+            column-reverse,
+            null,
+            null,
+            null,
+            center,
+            1.5em
+          );
+        }
+
+        .footer-img {
+          @include generate-flex-container(row, null, center, null, null, 1em);
+
+          .img-sapiencia {
+            max-width: 5em;
+            max-height: 5em;
+          }
+
+          .img-alcaldia {
+            max-width: 5em;
+            max-height: 5em;
+          }
+        }
+      }
+    }
+  }
+}
+
+// .spc-login-page-container {
+//   height: 100vh;
+//   min-height: 400px;
+//   display: flex;
+//   background: #fff;
+//   flex-direction: row;
+//   overflow: hidden;
+
+//   /*Sección uno*/
+//   .spc-login-page-img-container {
+//     width: 60%;
+//   }
+//   .spc-login-page-img {
+//     width: 100%;
+//     height: 100%;
+//     object-fit: cover;
+//   }
+
+//   /*Sección Dos*/
+//   .spc-login-page-form-panel {
+//     text-align: center;
+//     display: flex;
+//     flex-direction: row;
+//     justify-content: center;
+//     align-items: center;
+//     width: 100%;
+//     height: 100%;
+//   }
+
+// }
