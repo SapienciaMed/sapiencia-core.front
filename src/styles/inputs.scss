@@ -17,7 +17,7 @@
   }
 }
 
-.input-basic {
+.input-basic-login {
   @include generate-input(
     100%,
     41px,
@@ -39,6 +39,61 @@
   }
 }
 
+.input-basic {
+  @include generate-input(
+    100%,
+    41px,
+    6px,
+    1px solid $input-color-border,
+    null,
+    null,
+    15px
+  );
+
+  padding: 10px 20px;
+
+  &:focus {
+    outline: none;
+  }
+
+  &.error {
+    border: 1px solid $alert-failed-color;
+  }
+}
+
+.input-group-basic {
+  @include generate-input(
+    100%,
+    41px,
+    0 6px 6px 0,
+    1px solid $input-color-border,
+    null,
+    null,
+    15px
+  );
+  border-width: 1px 1px 1px 0;
+  padding: 10px 20px 10px 0;
+
+  &:focus {
+    outline: none;
+  }
+
+  &.error {
+    border: 1px solid $alert-failed-color;
+  }
+
+}
+
+.input-group-addon {
+  display: flex;
+  border: 1px solid #ccc;
+  border-width: 1px 0 1px 1px;
+  border-radius: 6px 0 0 6px;
+  padding: 0.5em 1em;
+  justify-content: center;
+  align-items: center;
+}
+
 .show-password {
   position: relative;
 
@@ -47,6 +102,10 @@
     right: 0;
     margin: 10px;
   }
+}
+.container-input-group {
+  display: flex;
+  align-content: stretch;
 }
 
 .container-icon_error {
@@ -71,6 +130,26 @@
     6px,
     1px solid $input-color-border,
     $secondary-color,
+    null,
+    15px
+  );
+
+  &:focus {
+    outline: none;
+  }
+
+  &.error {
+    border: 1px solid $alert-failed-color;
+  }
+}
+
+.select-basic-black {
+  @include generate-input(
+    100%,
+    41px,
+    6px,
+    1px solid $input-color-border,
+    $color-black,
     null,
     15px
   );

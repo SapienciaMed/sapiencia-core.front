@@ -7,6 +7,7 @@ interface ILabelProps {
   action?: Function;
   id?: string;
   form?: string;
+  disabled?: true;
 }
 
 export function ButtonComponent({
@@ -16,6 +17,7 @@ export function ButtonComponent({
   action = () => {},
   id,
   form,
+  disabled
 }: ILabelProps): React.JSX.Element {
   const handleButtonClick = (event: SyntheticEvent) => {
     if (type !== "submit") event.preventDefault();
@@ -29,6 +31,7 @@ export function ButtonComponent({
       form={form}
       className={className}
       onClick={handleButtonClick}
+      disabled={disabled}
     >
       {value}
     </button>
