@@ -23,7 +23,7 @@ export const recoveryPassword = yup.object({
     .required("El correo es obligatorio"),
 });
 
-export const createUser = yup.object({
+export const createUsers = yup.object({
   names: yup.string().required("El nombre de usuario es obligatorio"),
   lastNames: yup.string().required("El apellido del usuario es obligatorio"),
   typeDocument: yup.string().required("El tipo de documento es obligatorio"),

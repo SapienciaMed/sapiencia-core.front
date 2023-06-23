@@ -3,7 +3,7 @@ import { FormComponent } from "../../../common/components/Form/form.component";
 import { InputComponent } from "../../../common/components/Form/input.component";
 import { useForm } from "react-hook-form";
 import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
-import { createUser } from "../../../common/schemas";
+import { createUsers } from "../../../common/schemas";
 import { EDirection } from "../../../common/constants/input.enum";
 import useAuthService from "../../../common/hooks/auth-service.hook";
 import { EResponseCodes } from "../../../common/constants/api.enum";
@@ -24,8 +24,8 @@ const CreateUserPage = () => {
     show: false,
     msg: "",
   });
-  const resolver = useYupValidationResolver(createUser);
-  const { CreateUser } = useUserService();
+  const resolver = useYupValidationResolver(createUsers);
+  const { createUser } = useUserService();
   const { setMessage, authorization } = useContext(AppContext);
   const {
     handleSubmit,
@@ -46,7 +46,7 @@ const CreateUserPage = () => {
       userCreate: "test",
       userModify: "test",
     };
-    const res = await CreateUser(user);
+    const res = await createUser(user);
     if (res) {
       setMessage({
         cancelTitle: "cancelar",
@@ -63,7 +63,7 @@ const CreateUserPage = () => {
   return (
     <Fragment>
       <div className="container-form">
-        <h1 className="text-black huge">Crear usuario del sistema</h1>
+        <h1 className="text-black huge ml-24px">Crear usuario del sistema</h1>
         <div>
           <FormComponent
             id="createUserForm"
