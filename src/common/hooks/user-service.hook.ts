@@ -1,13 +1,15 @@
+import { EResponseCodes } from "../constants/api.enum";
+import { IAuthorization, IUser } from "../interfaces/auth.interfaces";
 import { IUserCreate } from "../interfaces/user.interfaces";
 import { ApiResponse, IPagingData } from "../utils/api-response";
 import useCrudService from "./crud-service.hook";
 
-export function useUserService() {
+export function useUserService(token) {
   const baseURL: string = "http://localhost:3333";
   const userUrl: string = "/api/v1/user";
-  const { get, post, put, deleted } = useCrudService(null, baseURL);
+  const { get, post, put, deleted } = useCrudService(token, baseURL);
 
-  async function getPagination(
+  async function GetPagination(
     page: number,
     perPage: number,
     name: string
@@ -17,17 +19,17 @@ export function useUserService() {
     return get(`${userUrl}${endpoint}`, params);
   }
 
-  async function getUser(id: number): Promise<ApiResponse<IUserCreate>> {
+  async function GetUser(id: number): Promise<ApiResponse<IUserCreate>> {
     const endpoint: string = `/get-by-id/${id}`;
     return get(`${userUrl}${endpoint}`);
   }
 
-  async function createUser(data: Object): Promise<ApiResponse<IUserCreate>> {
+  async function CreateUser(data: Object): Promise<ApiResponse<IUserCreate>> {
     const endpoint: string = "/create";
     return post(`${userUrl}${endpoint}`, data);
   }
 
-  async function updateUser(
+  async function UpdateUser(
     id: number,
     data: Object
   ): Promise<ApiResponse<IUserCreate>> {
@@ -35,16 +37,30 @@ export function useUserService() {
     return put(`${userUrl}${endpoint}`, data);
   }
 
-  async function deleteUser(id: number): Promise<ApiResponse<boolean>> {
+  async function DeleteUser(id: number): Promise<ApiResponse<boolean>> {
     const endpoint: string = `/delete/${id}`;
     return deleted(`${userUrl}${endpoint}`);
   }
 
+  async function ChangePassword(data: Object): Promise<ApiResponse<IUser>> {
+    try {
+      const endpoint: string = `/changePassword`;
+      return post(`${userUrl}${endpoint}`);
+    } catch (error) {
+      return new ApiResponse(
+        {} as IUser,
+        EResponseCodes.FAIL,
+        "Error no controlado"
+      );
+    }
+    
+  }
   return {
-    getPagination,
-    getUser,
-    createUser,
-    updateUser,
-    deleteUser,
+    GetPagination,
+    GetUser,
+    CreateUser,
+    UpdateUser,
+    DeleteUser,
+    ChangePassword,
   };
 }
