@@ -1,5 +1,9 @@
 import { EResponseCodes } from "../constants/api.enum";
-import { IAuthorization, IResponseSignIn } from "../interfaces/auth.interfaces";
+import {
+  IAuthorization,
+  IResponseSignIn,
+  IDecodedToken,
+} from "../interfaces/auth.interfaces";
 import { ApiResponse } from "../utils/api-response";
 import useCrudService from "./crud-service.hook";
 
@@ -52,10 +56,42 @@ export function useAuthService() {
     }
   }
 
+  async function validateTokenRecovery(
+    data: Object
+  ): Promise<ApiResponse<IDecodedToken>> {
+    try {
+      const endpoint: string = "/validateTokenRecovery";
+      return await post(`${authUrl}${endpoint}`, data);
+    } catch (error) {
+      return new ApiResponse(
+        {} as IDecodedToken,
+        EResponseCodes.FAIL,
+        "Error no controlado"
+      );
+    }
+  }
+
+  async function changePasswordToken(
+    data: Object
+  ): Promise<ApiResponse<IDecodedToken>> {
+    try {
+      const endpoint: string = "/changePasswordRecovery";
+      return await post(`${authUrl}${endpoint}`, data);
+    } catch (error) {
+      return new ApiResponse(
+        {} as IDecodedToken,
+        EResponseCodes.FAIL,
+        "Error no controlado"
+      );
+    }
+  }
+
   return {
     signIn,
     getAuthorization,
     recoveryPassword,
+    validateTokenRecovery,
+    changePasswordToken,
   };
 }
 

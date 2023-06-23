@@ -68,8 +68,6 @@ const FormRecoveryPassword = (): React.JSX.Element => {
       data
     );
 
-    console.log(operation);
-
     setMsgFailedRecovery(operation.message);
   });
 

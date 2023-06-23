@@ -9,5 +9,6 @@ export interface IMessage {
   cancelTitle?: string;
   onOk?: () => void;
   onCancel?: () => void;
+  onClickOutClose?: boolean;
 }
 

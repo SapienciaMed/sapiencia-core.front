@@ -12,6 +12,7 @@ import {
 } from "../../../common/components/Form/index";
 import { useNavigate } from "react-router-dom";
 import { GiCheckMark } from "react-icons/gi";
+<<<<<<< HEAD
 import { changePassword } from "../../../common/schemas/index";
 
 
@@ -23,11 +24,22 @@ function ChangePassword({ action }): React.JSX.Element {
   const {setMessage } = useContext(AppContext);
   const [modal,setModal] = useState<boolean>(false);
   const [formData,setFormData] = useState(null);
+=======
+
+import { changePassword } from "../../../common/schemas/index";
+
+import "../../../styles/login.scss";
+
+function ChangePassword({ action }): React.JSX.Element {
+  const resolver = useYupValidationResolver(changePassword);
+
+>>>>>>> sprint2
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm<IRequestRecoveryPassword>({ resolver });
+<<<<<<< HEAD
   const showModal = () => {
     setModal(!modal);
   }
@@ -63,6 +75,14 @@ useEffect (() => {
     );
   }
 
+=======
+
+  // // Metodo que hace la peticion al api
+  const onSubmitSignIn = handleSubmit(async (data) => {
+    await action(data);
+  });
+
+>>>>>>> sprint2
   return (
     <main className="container-grid_changePassword">
       <article className="changePassword-visualization"></article>
@@ -113,7 +133,11 @@ useEffect (() => {
           </div>
         </div>
         <hr />
+<<<<<<< HEAD
         <FooterRecoveryPasssword/>
+=======
+        <FooterRecoveryPasssword />
+>>>>>>> sprint2
       </article>
     </main>
   );

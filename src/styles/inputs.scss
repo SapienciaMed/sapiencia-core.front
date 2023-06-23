@@ -17,7 +17,7 @@
   }
 }
 
-.input-basic {
+.input-basic-login {
   @include generate-input(
     100%,
     41px,
@@ -39,13 +39,111 @@
   }
 }
 
+.input-basic {
+  @include generate-input(
+    100%,
+    41px,
+    6px,
+    1px solid $input-color-border,
+    null,
+    null,
+    15px
+  );
+
+  padding: 10px 20px;
+
+  &:focus {
+    outline: none;
+  }
+
+  &.error {
+    border: 1px solid $alert-failed-color;
+  }
+}
+
+.input-group-basic {
+  @include generate-input(
+    100%,
+    41px,
+    0 6px 6px 0,
+    1px solid $input-color-border,
+    null,
+    null,
+    15px
+  );
+  border-width: 1px 1px 1px 0;
+  padding: 10px 20px 10px 0;
+
+  &:focus {
+    outline: none;
+  }
+
+  &.error {
+    border: 1px solid $alert-failed-color;
+  }
+  &.tiny {
+    height: 1em;
+  }
+
+  &.small {
+    height: 1.5em;
+  }
+
+  &.medium {
+    height: 2.15em;
+  }
+
+  &.big {
+    height: 2.5em;
+  }
+
+  &.large {
+    height: 3em;
+  }
+
+}
+
+.input-group-addon {
+  display: flex;
+  border: 1px solid #ccc;
+  border-width: 1px 0 1px 1px;
+  border-radius: 6px 0 0 6px;
+  padding: 0.5em 1em;
+  justify-content: center;
+  align-items: center;
+}
+
 .show-password {
   position: relative;
 
-  .button-show_password {
+  .icon-showPassword {
     position: absolute;
     right: 0;
-    margin: 1px 1px;
+    margin: 10px;
+  }
+}
+.container-input-group {
+  display: flex;
+  align-content: stretch;
+
+  &.tiny {
+    height: 1em;
+  }
+
+  &.small {
+    height: 1.5em;
+  }
+
+  &.medium {
+    height: 2em;
+  }
+
+  &.big {
+    height: 2.5em;
+  }
+
+  &.large {
+    height: 3em;
   }
 }
 
@@ -55,10 +153,7 @@
   .icon-error {
     position: absolute;
     right: 0;
-    margin: 10px;
-    content: url($base-path-url-image + "icon-alert.png");
-    width: 20px;
-    height: 20px;
+    margin: 8px 8px;
   }
 }
 
@@ -71,7 +166,7 @@
   @include generate-input(
     100%,
     41px,
-    6px,
+    6px !important,
     1px solid $input-color-border,
     $secondary-color,
     null,
@@ -84,5 +179,64 @@
 
   &.error {
     border: 1px solid $alert-failed-color;
+  }
+  &.tiny {
+    height: 1em;
+  }
+
+  &.small {
+    height: 1.5em;
+  }
+
+  &.medium {
+    height: 2em;
+  }
+
+  &.big {
+    height: 2.5em;
+  }
+
+  &.large {
+    height: 3em;
+  }
+}
+
+.select-basic-black {
+  @include generate-input(
+    100%,
+    41px,
+    6px,
+    1px solid $input-color-border,
+    $color-black,
+    null,
+    15px
+  );
+
+  &:focus {
+    outline: none;
+  }
+
+  &.error {
+    border: 1px solid $alert-failed-color;
+  }
+
+  &.tiny {
+    height: 1em;
+  }
+
+  &.small {
+    height: 1.5em;
+  }
+
+  &.medium {
+    height: 2em;
+  }
+
+  &.big {
+    height: 2.5em;
+  }
+
+  &.large {
+    height: 3em;
   }
 }

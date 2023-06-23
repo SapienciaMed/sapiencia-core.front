@@ -55,10 +55,6 @@ export function useUserService(token=null) {
     }
     
   }
-
-
-
-
   return {
     getPagination,
     getUser,

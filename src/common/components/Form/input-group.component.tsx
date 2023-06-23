@@ -3,8 +3,6 @@ import { EDirection } from "../../constants/input.enum";
 import { LabelComponent } from "./label.component";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
 
-import { MdOutlineError } from "react-icons/md";
-
 interface IInputProps<T> {
   idInput: string;
   typeInput: string;
@@ -17,6 +15,8 @@ interface IInputProps<T> {
   direction?: EDirection;
   children?: React.JSX.Element | React.JSX.Element[];
   errors?: FieldErrors<any>;
+  iconLegend?: React.JSX.Element | string;
+  containerClassname?:string;
 }
 
 function LabelElement({ label, idInput, classNameLabel }): React.JSX.Element {
@@ -37,8 +37,12 @@ function InputElement({
   placeholder,
   register,
   value,
+  iconLegend,
+  containerClassname
 }): React.JSX.Element {
   return (
+    <div className={containerClassname? `container-input-group ${containerClassname}` : "container-input-group"}>
+    <span className="input-group-addon text-black bold">{iconLegend}</span>
     <input
       {...register(idInput)}
       name={idInput}
@@ -47,14 +51,15 @@ function InputElement({
       placeholder={placeholder}
       defaultValue={value}
     />
+    </div>
   );
 }
 
-export function InputComponent({
+export function InputGroupComponent({
   idInput,
   typeInput,
   register,
-  className = "input-basic",
+  className = "input-group-basic",
   placeholder,
   value,
   label,
@@ -62,6 +67,8 @@ export function InputComponent({
   direction = EDirection.column,
   children,
   errors,
+  iconLegend,
+  containerClassname,
 }: IInputProps<any>): React.JSX.Element {
   return (
     <div
@@ -84,14 +91,10 @@ export function InputComponent({
           placeholder={placeholder}
           register={register}
           value={value}
+          iconLegend={iconLegend}
+          containerClassname = {containerClassname}
         />
-        {errors[idInput]?.message && (
-          <MdOutlineError
-            className="icon-error"
-            fontSize={"22px"}
-            color="#ff0000"
-          />
-        )}
+        {errors[idInput]?.message && <span className="icon-error"></span>}
       </div>
       {errors[idInput]?.message && (
         <p className="error-message bold not-margin-padding">

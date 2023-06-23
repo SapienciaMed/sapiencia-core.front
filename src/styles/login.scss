@@ -379,6 +379,177 @@
   }
 }
 
+.container-grid_changePassword {
+  font-size: 16px;
+
+  height: 100vh;
+
+  @include generate-grid(1, 1fr);
+  justify-items: center;
+  align-items: center;
+
+  .changePassword-visualization {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-image: url($base-path-url-image + "login-visualization-main.png");
+  }
+
+  .container-changePassword {
+    width: 40vw;
+    height: auto;
+    z-index: 1000;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border-radius: 19px;
+    overflow: auto;
+
+    .container-close {
+      position: relative;
+      cursor: pointer;
+
+      span {
+        position: absolute;
+        top: 0;
+        right: 20px;
+        padding: 0.3em 0em;
+        color: $main-color;
+        font-size: 20px;
+      }
+    }
+
+    .container-form_changePassword {
+      padding: 2.5em;
+      @include generate-flex-container(
+        column,
+        null,
+        center,
+        null,
+        center,
+        1.2em
+      );
+    }
+
+    .form-changePassword {
+      @include generate-flex-container(column, null, null, null, null, 1.5em);
+      width: 100%;
+    }
+
+    hr {
+      width: 100%;
+      border: none;
+      height: 0.5px;
+      color: #dfdede;
+      background-color: #dfdede;
+    }
+
+    .content-footer_changePassword {
+      padding: 0.5em 1em 1.5em 1em;
+      @include generate-flex-container(row, wrap, null, null, center, 1.5em);
+
+      .container-buttons {
+        @include generate-flex-container(row, null, null, null, center, 0.5em);
+        width: 60%;
+        flex: 1;
+
+        span {
+          cursor: pointer;
+          width: 50%;
+        }
+      }
+
+      .footer-img {
+        @include generate-flex-container(row, null, null, null, center, 1.5em);
+        width: 40%;
+
+        .img-sapiencia {
+          max-width: 5em;
+        }
+
+        .img-alcaldia {
+          max-width: 6em;
+        }
+      }
+    }
+  }
+
+  .validations-info {
+    padding: 0 2.5em;
+    @include generate-flex-container(row, null, null, null, center, 1.5em);
+
+    .msg-info_validation {
+      @include generate-flex-container(row, null, null, center, null, 0.7em);
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .container-grid_changePassword {
+    font-size: 17px;
+
+    .container-changePassword {
+      width: 90vw;
+      height: 80vh;
+
+      hr {
+        display: none;
+      }
+
+      .form-changePassword {
+        @include generate-flex-container(column, null, null, null, null, 1em);
+        width: 100%;
+      }
+
+      .content-footer_changePassword {
+        @include generate-flex-container(column, null, null, null, center, 1em);
+
+        .container-buttons {
+          width: 60%;
+
+          @include generate-flex-container(
+            column-reverse,
+            null,
+            null,
+            null,
+            center,
+            1em
+          );
+        }
+
+        .footer-img {
+          @include generate-flex-container(row, null, center, null, null, 1em);
+
+          .img-sapiencia {
+            max-width: 5em;
+            max-height: 5em;
+          }
+
+          .img-alcaldia {
+            max-width: 5em;
+            max-height: 5em;
+          }
+        }
+      }
+    }
+
+    .validations-info {
+      padding: 0 2.5em;
+      margin-bottom: 1.5em;
+      @include generate-flex-container(
+        column,
+        null,
+        null,
+        null,
+        flex-start,
+        1.5em
+      );
+
+      .msg-info_validation {
+        @include generate-flex-container(row, null, null, null, null, 1em);
+      }
+    }
+  }
+}
+
 // .spc-login-page-container {
 //   height: 100vh;
 //   min-height: 400px;

@@ -3,6 +3,8 @@ import { EDirection } from "../../constants/input.enum";
 import { LabelComponent } from "./label.component";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
 
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+
 interface IInputProps<T> {
   idInput: string;
   register: UseFormRegister<T>;
@@ -63,12 +65,29 @@ export function InputShowPassword({
             className={errors[idInput] ? `${className} error` : className}
             placeholder={placeholder}
           />
-          <button
+
+          {viewPassword ? (
+            <AiOutlineEyeInvisible
+              className="icon-showPassword pointer"
+              color="#a71989"
+              fontSize={"22px"}
+              onClick={handleShowPassword}
+            />
+          ) : (
+            <AiOutlineEye
+              className="icon-showPassword pointer"
+              color="#a71989"
+              fontSize={"22px"}
+              onClick={handleShowPassword}
+            />
+          )}
+
+          {/* <button
             className="button-show_password bold"
             onClick={handleShowPassword}
           >
             Ver
-          </button>
+          </button> */}
         </div>
       </div>
       {errors[idInput]?.message && (
