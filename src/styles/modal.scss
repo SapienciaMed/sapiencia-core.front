@@ -64,6 +64,7 @@
     color: #dd8b07;
   }
   &.modal-warning-bg {
+    background-color: #dd8b07;
   }
 
   /* Exito */
@@ -90,7 +91,7 @@
   left: 0;
   width: 100%;
   min-height: 100vh;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: transparent;
   display: none;
   justify-content: center;
   align-items: center;

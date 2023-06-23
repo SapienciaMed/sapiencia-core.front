@@ -9,8 +9,8 @@ function WelcomeContainer(): React.JSX.Element {
     title: "prueba modal",
     description: "soy una prueba",
     show: true,
-    cancelTitle: "mensaje cancelar",
     OkTitle:"ok mensaje",
+    onClickOutClose: true,
   }
   return (
     <section className="welcome-container">

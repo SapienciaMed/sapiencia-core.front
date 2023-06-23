@@ -59,6 +59,26 @@
   &.error {
     border: 1px solid $alert-failed-color;
   }
+
+  &.tiny {
+    height: 1em;
+  }
+
+  &.small {
+    height: 1.5em;
+  }
+
+  &.medium {
+    height: 2em;
+  }
+
+  &.big {
+    height: 2.5em;
+  }
+
+  &.large {
+    height: 3em;
+  }
 }
 
 .input-group-basic {
@@ -80,6 +100,25 @@
 
   &.error {
     border: 1px solid $alert-failed-color;
+  }
+  &.tiny {
+    height: 1em;
+  }
+
+  &.small {
+    height: 1.5em;
+  }
+
+  &.medium {
+    height: 2.15em;
+  }
+
+  &.big {
+    height: 2.5em;
+  }
+
+  &.large {
+    height: 3em;
   }
 
 }
@@ -106,6 +145,26 @@
 .container-input-group {
   display: flex;
   align-content: stretch;
+
+  &.tiny {
+    height: 1em;
+  }
+
+  &.small {
+    height: 1.5em;
+  }
+
+  &.medium {
+    height: 2em;
+  }
+
+  &.big {
+    height: 2.5em;
+  }
+
+  &.large {
+    height: 3em;
+  }
 }
 
 .container-icon_error {
@@ -130,7 +189,7 @@
   @include generate-input(
     100%,
     41px,
-    6px,
+    6px !important,
     1px solid $input-color-border,
     $secondary-color,
     null,
@@ -143,6 +202,25 @@
 
   &.error {
     border: 1px solid $alert-failed-color;
+  }
+  &.tiny {
+    height: 1em;
+  }
+
+  &.small {
+    height: 1.5em;
+  }
+
+  &.medium {
+    height: 2em;
+  }
+
+  &.big {
+    height: 2.5em;
+  }
+
+  &.large {
+    height: 3em;
   }
 }
 
@@ -163,5 +241,25 @@
 
   &.error {
     border: 1px solid $alert-failed-color;
+  }
+
+  &.tiny {
+    height: 1em;
+  }
+
+  &.small {
+    height: 1.5em;
+  }
+
+  &.medium {
+    height: 2em;
+  }
+
+  &.big {
+    height: 2.5em;
+  }
+
+  &.large {
+    height: 3em;
   }
 }
