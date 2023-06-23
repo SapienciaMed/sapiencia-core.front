@@ -6,9 +6,6 @@ import "./styles/_theme-prime.css";
 import "primereact/resources/primereact.min.css";
 import ModalMessageComponent from "./common/components/modal-message.component";
 
-
-import ModalMessageComponent from "./common/components/modal-message.component";
-
 function App() {
 
   const Role = lazy(() => import("./features/role/pages/role-list.page"));
