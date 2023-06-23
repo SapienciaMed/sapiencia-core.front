@@ -15,12 +15,9 @@ function App() {
   const RecoveryPassword = lazy(
     () => import("./features/home/pages/recovery-password.page")
   );
-<<<<<<< Updated upstream
-=======
   const ChangePasswordRecovery = lazy(
     () => import("./features/home/pages/change-password-token.page")
   );
->>>>>>> Stashed changes
 
   const ChangePassword =  lazy(
     () => import("./features/home/pages/change-password.page")
@@ -52,10 +49,6 @@ function App() {
               }
             />
 
-<<<<<<< Updated upstream
-            <Route path={"/recovery-password"} element={<RecoveryPassword />} />
-
-=======
             <Route
               path={"/change-password-recovery"}
               element={
@@ -70,7 +63,6 @@ function App() {
                 <ChangePassword/>
               }
             />
->>>>>>> Stashed changes
             <Route path={"/core/roles"} element={<Role />} />
             <Route path={"/core/users"} element={<CreateUser/>} />
           </Routes>
