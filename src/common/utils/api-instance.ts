@@ -8,7 +8,7 @@ export default function instanceApi(token: string, baseURL: string) {
     api.interceptors.request.use(
         req => {
             if(token !== null) {
-                req.headers.Authorization = `${token}`;
+                req.headers.Authorization = `Bearer ${token}`;
             }
             return req;
         },

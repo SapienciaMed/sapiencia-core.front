@@ -16,12 +16,22 @@ function App() {
   const RecoveryPassword = lazy(
     () => import("./features/home/pages/recovery-password.page")
   );
+<<<<<<< Updated upstream
+=======
+  const ChangePasswordRecovery = lazy(
+    () => import("./features/home/pages/change-password-token.page")
+  );
+>>>>>>> Stashed changes
 
+  const ChangePassword =  lazy(
+    () => import("./features/home/pages/change-password.page")
+  );
   const AuthGuardPublic = lazy(
     () => import("./common/components/Auth/auth-public")
   );
   return (
     <AppContextProvider>
+       <ModalMessageComponent/>
       <Router>
         <Suspense fallback={<p>Loading...</p>}>
           <Routes>
@@ -35,13 +45,29 @@ function App() {
               }
             />
 
+<<<<<<< Updated upstream
             <Route path={"/recovery-password"} element={<RecoveryPassword />} />
 
+=======
+            <Route
+              path={"/change-password-recovery"}
+              element={
+                <AuthGuardPublic>
+                  <ChangePasswordRecovery />
+                </AuthGuardPublic>
+              }
+            />
+              <Route
+              path={"/change-password"}
+              element={
+                <ChangePassword/>
+              }
+            />
+>>>>>>> Stashed changes
             <Route path={"/core/roles"} element={<Role />} />
           </Routes>
         </Suspense>
       </Router>
-      <ModalMessageComponent/>
     </AppContextProvider>
   );
 }

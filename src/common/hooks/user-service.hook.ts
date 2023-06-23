@@ -4,12 +4,12 @@ import { IUserCreate } from "../interfaces/user.interfaces";
 import { ApiResponse, IPagingData } from "../utils/api-response";
 import useCrudService from "./crud-service.hook";
 
-export function useUserService(token) {
+export function useUserService(token=null) {
   const baseURL: string = "http://localhost:3333";
   const userUrl: string = "/api/v1/user";
   const { get, post, put, deleted } = useCrudService(token, baseURL);
 
-  async function GetPagination(
+  async function getPagination(
     page: number,
     perPage: number,
     name: string
@@ -19,17 +19,17 @@ export function useUserService(token) {
     return get(`${userUrl}${endpoint}`, params);
   }
 
-  async function GetUser(id: number): Promise<ApiResponse<IUserCreate>> {
+  async function getUser(id: number): Promise<ApiResponse<IUserCreate>> {
     const endpoint: string = `/get-by-id/${id}`;
     return get(`${userUrl}${endpoint}`);
   }
 
-  async function CreateUser(data: Object): Promise<ApiResponse<IUserCreate>> {
+  async function createUser(data: Object): Promise<ApiResponse<IUserCreate>> {
     const endpoint: string = "/create";
     return post(`${userUrl}${endpoint}`, data);
   }
 
-  async function UpdateUser(
+  async function updateUser(
     id: number,
     data: Object
   ): Promise<ApiResponse<IUserCreate>> {
@@ -37,15 +37,15 @@ export function useUserService(token) {
     return put(`${userUrl}${endpoint}`, data);
   }
 
-  async function DeleteUser(id: number): Promise<ApiResponse<boolean>> {
+  async function deleteUser(id: number): Promise<ApiResponse<boolean>> {
     const endpoint: string = `/delete/${id}`;
     return deleted(`${userUrl}${endpoint}`);
   }
 
-  async function ChangePassword(data: Object): Promise<ApiResponse<IUser>> {
+  async function changePassword(data: Object): Promise<ApiResponse<IUser>> {
     try {
       const endpoint: string = `/changePassword`;
-      return post(`${userUrl}${endpoint}`);
+      return await post(`${userUrl}${endpoint}`,data);
     } catch (error) {
       return new ApiResponse(
         {} as IUser,
@@ -60,11 +60,11 @@ export function useUserService(token) {
 
 
   return {
-    GetPagination,
-    GetUser,
-    CreateUser,
-    UpdateUser,
-    DeleteUser,
-    ChangePassword,
+    getPagination,
+    getUser,
+    createUser,
+    updateUser,
+    deleteUser,
+    changePassword,
   };
 }

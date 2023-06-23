@@ -12,16 +12,15 @@ function ChangePasswordRecovery(): React.JSX.Element {
   
   const token =   localStorage.getItem("token");  
 
-  const { ChangePassword } = useUserService(token);
+  const { changePassword } = useUserService(token);
 
   const callbackChangePassword = async (data: object) => {
-    const { data: dataResponse, operation } = await ChangePassword({
+    const { data: dataResponse, operation } = await changePassword({
       ...data
     });
 
     if (operation.code === EResponseCodes.OK) {
-      alert("Contrasena cambiada exitosamente");
-      //navigate("../login");
+      navigate("../login");
     } else {
       alert("Error en el token");
     }
