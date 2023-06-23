@@ -21,7 +21,7 @@ function WelcomeContainer(): React.JSX.Element {
         Breve descripción o texto explicativo sobre funcionalidades del sistema
       </span>
       {/* <button >modal</button> */}
-      <ModalMessageComponent/>
+      
     </section>
   );
 }
