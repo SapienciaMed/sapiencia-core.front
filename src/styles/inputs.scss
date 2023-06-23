@@ -42,10 +42,10 @@
 .show-password {
   position: relative;
 
-  .button-show_password {
+  .icon-showPassword {
     position: absolute;
     right: 0;
-    margin: 1px 1px;
+    margin: 10px;
   }
 }
 
@@ -55,10 +55,7 @@
   .icon-error {
     position: absolute;
     right: 0;
-    margin: 10px;
-    content: url($base-path-url-image + "icon-alert.png");
-    width: 20px;
-    height: 20px;
+    margin: 8px 8px;
   }
 }
 

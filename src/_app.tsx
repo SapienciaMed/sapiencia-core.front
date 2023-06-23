@@ -12,9 +12,12 @@ function App() {
   const RecoveryPassword = lazy(
     () => import("./features/home/pages/recovery-password.page")
   );
+  const ChangePassword = lazy(
+    () => import("./features/home/pages/change-password-token.page")
+  );
 
   const AuthGuardPublic = lazy(
-    () => import("./common/components/Auth/auth-public")
+    () => import("./common/components/Guard/auth-public-guard")
   );
 
   return (
@@ -33,7 +36,23 @@ function App() {
               }
             />
 
-            <Route path={"/recovery-password"} element={<RecoveryPassword />} />
+            <Route
+              path={"/recovery-password"}
+              element={
+                <AuthGuardPublic>
+                  <RecoveryPassword />
+                </AuthGuardPublic>
+              }
+            />
+
+            <Route
+              path={"/change-password"}
+              element={
+                <AuthGuardPublic>
+                  <ChangePassword />
+                </AuthGuardPublic>
+              }
+            />
 
             <Route path={"/core/roles"} element={<Role />} />
           </Routes>

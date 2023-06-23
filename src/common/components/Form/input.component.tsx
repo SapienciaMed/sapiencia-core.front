@@ -3,6 +3,8 @@ import { EDirection } from "../../constants/input.enum";
 import { LabelComponent } from "./label.component";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
 
+import { MdOutlineError } from "react-icons/md";
+
 interface IInputProps<T> {
   idInput: string;
   typeInput: string;
@@ -83,7 +85,13 @@ export function InputComponent({
           register={register}
           value={value}
         />
-        {errors[idInput]?.message && <span className="icon-error"></span>}
+        {errors[idInput]?.message && (
+          <MdOutlineError
+            className="icon-error"
+            fontSize={"22px"}
+            color="#ff0000"
+          />
+        )}
       </div>
       {errors[idInput]?.message && (
         <p className="error-message bold not-margin-padding">

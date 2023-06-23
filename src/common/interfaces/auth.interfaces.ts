@@ -48,3 +48,7 @@ export interface IRequestRecoveryPassword {
   numberDocument: string;
   email: string;
 }
+
+export interface IDecodedToken {
+  id: number;
+}

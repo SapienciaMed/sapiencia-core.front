@@ -22,3 +22,18 @@ export const recoveryPassword = yup.object({
     .email("Correo no valido")
     .required("El correo es obligatorio"),
 });
+
+export const changePassword = yup.object({
+  password: yup
+    .string()
+    .min(7, "Ingrese al menos 7 caracteres")
+    .required("La contraseña es obligatoria"),
+  confirmPassword: yup
+    .string()
+    .min(7, "Ingrese al menos 7 caracteres")
+    .required("La contraseña es obligatoria")
+    .oneOf(
+      [yup.ref("password")],
+      "Las contraseñas no coinciden, por favor verificar"
+    ),
+});
