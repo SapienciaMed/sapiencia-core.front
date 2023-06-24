@@ -1,6 +1,7 @@
 export interface ITableElement<T> {
   header: string;
   fieldName: string;
+  mobile: boolean;
   required?: boolean;
   dataList?: IListTableElement[];
   renderCell?: (row: T) => JSX.Element;

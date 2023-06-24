@@ -7,8 +7,8 @@ import "primereact/resources/primereact.min.css";
 import ModalMessageComponent from "./common/components/modal-message.component";
 
 function App() {
-
   const Role = lazy(() => import("./features/role/pages/role-list.page"));
+  const RoleCrud = lazy(() => import("./features/role/pages/role-crud.page"));
   const CreateUser = lazy(() => import("./features/user/pages/user-create.page"));
   const Login = lazy(() => import("./features/home/pages/login.page"));
   const Home = lazy(() => import("./features/home/pages/home.page"));
@@ -64,6 +64,7 @@ function App() {
               }
             />
             <Route path={"/core/roles"} element={<Role />} />
+            <Route path={"/core/roles/create"} element={<RoleCrud />} />
             <Route path={"/core/users"} element={<CreateUser/>} />
           </Routes>
         </Suspense>

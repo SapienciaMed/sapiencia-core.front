@@ -51,3 +51,9 @@ export const changePassword = yup.object({
       "Las contraseñas no coinciden, por favor verificar"
     ),
 });
+
+export const roleValidator = yup.object({
+  nombreRol: yup
+  .string()
+  .required("Inserta un nombre"),
+});

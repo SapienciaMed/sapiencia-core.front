@@ -111,12 +111,13 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
     }
   }, [])
 
+
   return (
     <div className="spc-common-table">
       {title && <div className="spc-table-title">{title}</div>}
 
       <DataTable
-        className="spc-table"
+        className="spc-table full-height"
         value={resultData?.array || []}
         loading={loading}
         scrollable={true}
@@ -127,12 +128,12 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
             field={col.fieldName}
             header={col.header}
             body={col.renderCell}
+            className={col.mobile ? "mobile-enabled" : "mobile-disabled"}
           />
         ))}
 
         {actions && (
-          <Column
-            style={{ width: actions.length > 2 ? actions.length * 50 : 100 }}
+          <Column		 
             className="spc-table-actions"
             header={
               <div>

@@ -71,14 +71,21 @@
   cursor: pointer;
 }
 
-@mixin card-component($card-height, $card-width, $padding) {
+@mixin card-component($card-height, $card-width, $padding, $show: true) {
   height: $card-height;
   width: $card-width;
   padding: $padding;
-  border: 1px solid #7070701A;
-  border-radius: 13px;
-  box-shadow: inset 0px 3px 6px #00000029, 0px 3px 6px #00000029;
-  background: #FFFFFF 0% 0% no-repeat padding-box;
+  @if $show {
+    border: 1px solid #7070701A;
+    border-radius: 13px;
+    box-shadow: inset 0px 3px 6px #00000029, 0px 3px 6px #00000029;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+  } @else {
+    border: 0px;
+    border-radius: 0px;
+    box-shadow: 0px 0px;
+    background: transparent;
+  }
 }
 
 @mixin multiple-card-component($columns, $margin-horizontal, $margin-vertical, $card-height, $card-width, $padding, $cursor: null) {

@@ -196,7 +196,6 @@ const CreateUserPage = () => {
                   className="select-basic medium"
                   placeholder="Seleccione"
                   label="Departamento"
-                  data={[{}]}
                   value={null}
                   classNameLabel="text-black big bold"
                   direction={EDirection.column}
@@ -208,7 +207,6 @@ const CreateUserPage = () => {
                   className="select-basic medium"
                   placeholder="Seleccione"
                   label="Municipio"
-                  data={[{}]}
                   value={null}
                   classNameLabel="text-black big bold"
                   direction={EDirection.column}

@@ -4,12 +4,17 @@ import { LabelComponent } from "./label.component";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
 import { Dropdown } from 'primereact/dropdown';
 
+interface IDropdownProps {
+  name: string,
+  value: string
+}
+
 interface ISelectProps<T> {
   idInput: string;
   register: UseFormRegister<T>;
   className?: string;
   placeholder?: string;
-  data?: Array<object>;
+  data?: Array<IDropdownProps>;
   value?: string;
   label?: string;
   classNameLabel?: string;
@@ -49,7 +54,7 @@ export function SelectComponent({
   register,
   className = "select-basic",
   placeholder = "Seleccione",
-  data = [{}],
+  data = [{} as IDropdownProps],
   value = null,
   label,
   classNameLabel = "text-main",

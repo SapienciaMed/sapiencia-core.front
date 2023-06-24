@@ -74,6 +74,26 @@
   background: #eeeeee 0% 0% no-repeat padding-box;
 }
 
+.role-form {
+    padding: 1rem 1rem;
+
+    .role-information-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin-bottom: 2rem;
+    }
+
+    .role-action-buttons {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        row-gap: 2em;
+        margin: 3em 0em;
+        align-items: center;
+    }
+}
+
 @media (min-width: 1024px) {
   .dashboard-margin {
     grid-template-rows: 16em 1fr;
@@ -104,4 +124,19 @@
       $cursor
     );
   }
+
+    .role-form {
+        padding: 2rem 4rem;
+
+        .role-information-container {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .role-action-buttons {
+            flex-direction: row;
+            margin: 3em 22em;
+            column-gap: 5em;
+            row-gap: 0px;
+        }
+    }
 }

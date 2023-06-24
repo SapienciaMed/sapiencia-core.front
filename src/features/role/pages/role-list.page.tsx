@@ -6,12 +6,14 @@ import {
 import { IRole } from "../role.interfaces";
 import TableComponent from "../../../common/components/table.component";
 import iconCreate from "../../../public/images/icons/icon-create.png";
+import { useNavigate } from "react-router-dom";
 
 interface IAppProps { }
 
 function RoleListPage(props: IAppProps) {
   // Declaraciones
   const tableComponentRef = useRef(null);
+  const navigate = useNavigate();
 
   // Effect que inicia la carga de datos
   useEffect(() => {
@@ -24,14 +26,17 @@ function RoleListPage(props: IAppProps) {
       fieldName: "id",
       header: "Codigo",
       renderCell: (row) => <b>{row.id}</b>,
+      mobile: false
     },
     {
       fieldName: "name",
       header: "Nombre",
+      mobile: true
     },
     {
       fieldName: "description",
       header: "Descriptión",
+      mobile: false
     },
   ];
   const tableActions: ITableAction<IRole>[] = [
@@ -68,7 +73,7 @@ function RoleListPage(props: IAppProps) {
         <div className="title-area">
           <div className="text-main biggest bold">Consultar rol</div>
 
-          <div className="title-button text-main big">
+          <div className="title-button text-main big" onClick={() => {navigate("./create")}}>
             Crear <img src={iconCreate} alt="crear" />
           </div>
         </div>

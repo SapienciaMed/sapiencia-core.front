@@ -19,3 +19,8 @@ export interface IRoleFilters {
     perPage: number;
     name?: string;
 }
+
+export interface IRequestRole {
+    numberDocument: string;
+    password: string;
+}
