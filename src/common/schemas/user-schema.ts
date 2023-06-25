@@ -56,4 +56,7 @@ export const roleValidator = yup.object({
   nombreRol: yup
   .string()
   .required("Inserta un nombre"),
+  descripcionRol: yup
+  .string()
+  .required("Inserta una descripción")
 });

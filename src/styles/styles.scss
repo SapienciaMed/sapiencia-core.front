@@ -77,6 +77,10 @@
 .role-form {
     padding: 1rem 1rem;
 
+    .select-applications {
+      margin: 0px 0px 20px 0px;
+    }
+
     .role-information-container {
         display: grid;
         grid-template-columns: 1fr;
@@ -128,6 +132,10 @@
     .role-form {
         padding: 2rem 4rem;
 
+        .select-applications {
+          display: flex;
+          justify-content: flex-end;
+        }
         .role-information-container {
             grid-template-columns: 1fr 1fr;
         }

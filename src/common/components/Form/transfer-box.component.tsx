@@ -22,7 +22,6 @@ export function TransferBoxComponent({ idInput, data, register, setValueRegister
     }, [data]);
 
     const handleSelectItem = () => {
-        debugger
         const keys = Object.keys(stateSelected);
         const childrenSelectedKeys: string[] = [];
         selectedItems.forEach((item) => {

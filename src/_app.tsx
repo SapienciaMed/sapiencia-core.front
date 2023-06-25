@@ -1,15 +1,18 @@
-import { Suspense, lazy, useEffect , useContext } from "react";
+import { Fragment, Suspense, lazy } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { AppContext, AppContextProvider } from "./common/contexts/app.context";
+import { AppContextProvider } from "./common/contexts/app.context";
 import "./styles/_app.scss";
 import "./styles/_theme-prime.css";
 import "primereact/resources/primereact.min.css";
 import ModalMessageComponent from "./common/components/modal-message.component";
+import ApplicationProvider from "./application-provider";
 
 function App() {
   const Role = lazy(() => import("./features/role/pages/role-list.page"));
   const RoleCrud = lazy(() => import("./features/role/pages/role-crud.page"));
-  const CreateUser = lazy(() => import("./features/user/pages/user-create.page"));
+  const CreateUser = lazy(
+    () => import("./features/user/pages/user-create.page")
+  );
   const Login = lazy(() => import("./features/home/pages/login.page"));
   const Home = lazy(() => import("./features/home/pages/home.page"));
   const RecoveryPassword = lazy(
@@ -19,7 +22,7 @@ function App() {
     () => import("./features/home/pages/change-password-token.page")
   );
 
-  const ChangePassword =  lazy(
+  const ChangePassword = lazy(
     () => import("./features/home/pages/change-password.page")
   );
   const AuthGuardPublic = lazy(
@@ -27,48 +30,45 @@ function App() {
   );
   return (
     <AppContextProvider>
-       <ModalMessageComponent/>
-      <Router>
-        <Suspense fallback={<p>Loading...</p>}>
-          <Routes>
-            <Route path={"/*"} element={<Home />} />
-            <Route
-              path={"/login"}
-              element={
-                <AuthGuardPublic>
-                  <Login />
-                </AuthGuardPublic>
-              }
-            />
-            <Route
-              path={"/recovery-password"}
-              element={
-                <AuthGuardPublic>
-                  <RecoveryPassword />
-                </AuthGuardPublic>
-              }
-            />
-
-            <Route
-              path={"/change-password-recovery"}
-              element={
-                <AuthGuardPublic>
-                  <ChangePasswordRecovery />
-                </AuthGuardPublic>
-              }
-            />
+      <ModalMessageComponent />
+      <ApplicationProvider>
+        <Router>
+          <Suspense fallback={<p>Loading...</p>}>
+            <Routes>
+              <Route path={"/*"} element={<Home />} />
               <Route
-              path={"/change-password"}
-              element={
-                <ChangePassword/>
-              }
-            />
-            <Route path={"/core/roles"} element={<Role />} />
-            <Route path={"/core/roles/create"} element={<RoleCrud />} />
-            <Route path={"/core/users"} element={<CreateUser/>} />
-          </Routes>
-        </Suspense>
-      </Router>
+                path={"/login"}
+                element={
+                  <AuthGuardPublic>
+                    <Login />
+                  </AuthGuardPublic>
+                }
+              />
+              <Route
+                path={"/recovery-password"}
+                element={
+                  <AuthGuardPublic>
+                    <RecoveryPassword />
+                  </AuthGuardPublic>
+                }
+              />
+
+              <Route
+                path={"/change-password-recovery"}
+                element={
+                  <AuthGuardPublic>
+                    <ChangePasswordRecovery />
+                  </AuthGuardPublic>
+                }
+              />
+              <Route path={"/change-password"} element={<ChangePassword />} />
+              <Route path={"/core/roles"} element={<Role />} />
+              <Route path={"/core/roles/create"} element={<RoleCrud />} />
+              <Route path={"/core/users"} element={<CreateUser />} />
+            </Routes>
+          </Suspense>
+        </Router>
+      </ApplicationProvider>
     </AppContextProvider>
   );
 }

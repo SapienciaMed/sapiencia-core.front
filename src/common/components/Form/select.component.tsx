@@ -11,7 +11,7 @@ interface IDropdownProps {
 
 interface ISelectProps<T> {
   idInput: string;
-  register: UseFormRegister<T>;
+  register?: UseFormRegister<T>;
   className?: string;
   placeholder?: string;
   data?: Array<IDropdownProps>;
@@ -21,6 +21,10 @@ interface ISelectProps<T> {
   direction?: EDirection;
   children?: React.JSX.Element | React.JSX.Element[];
   errors?: FieldErrors<any>;
+  stateProps?: {
+    state: any,
+    setState: React.Dispatch<any>
+  }
 }
 
 function LabelElement({ label, idInput, classNameLabel }): React.JSX.Element {
@@ -40,11 +44,13 @@ function SelectElement({
   placeholder,
   data,
   value,
-  register
+  register,
+  stateProps
 }): React.JSX.Element {
   const [selectedCity, setSelectedCity] = useState(value);
+  const registerProp = register ? register : () => {};
   return (
-    <Dropdown {...register(idInput)} value={selectedCity} onChange={(e) => setSelectedCity(e.value)} options={data} optionLabel="name" 
+    <Dropdown {...registerProp(idInput)} value={stateProps ? stateProps.state : selectedCity} onChange={(e) => stateProps ? stateProps.setState(e.value) : setSelectedCity(e.value)} options={data} optionLabel="name" 
       placeholder={placeholder} className={className} />
   );
 }
@@ -60,7 +66,8 @@ export function SelectComponent({
   classNameLabel = "text-main",
   direction = EDirection.column,
   children,
-  errors,
+  errors = {},
+  stateProps
 }: ISelectProps<any>): React.JSX.Element {
   return (
     <div
@@ -76,7 +83,7 @@ export function SelectComponent({
         classNameLabel={classNameLabel}
       />
       <div>
-        <SelectElement idInput={idInput} className={className} placeholder={placeholder} data={data} value={value} register={register}/>
+        <SelectElement idInput={idInput} className={className} placeholder={placeholder} data={data} value={value} register={register} stateProps={stateProps}/>
         {errors[idInput]?.message && <span className="icon-error"></span>}
       </div>
       {errors[idInput]?.message && (
