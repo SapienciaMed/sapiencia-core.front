@@ -9,16 +9,13 @@ import useCreateUserData from "../hooks/createUserData.hook";
 
 const CreateUserPage = () => {
   const {
-    genericList,
+    genderList,
+    typeDocumentList,
     onSubmitSignIn,
     CancelFunction,
     register,
-    authorization,
     errors,
   } = useCreateUserData();
-
-  console.log(genericList)
-
   return (
     <Fragment>
       <div className="full-height">
@@ -44,7 +41,7 @@ const CreateUserPage = () => {
                       register={register}
                       className="select-basic medium"
                       placeholder="Tipo"
-                      data={genericList ? genericList[1] : []}
+                      data={typeDocumentList ? typeDocumentList : []}
                       value={null}
                       classNameLabel="text-black big bold"
                       direction={EDirection.column}
@@ -106,7 +103,7 @@ const CreateUserPage = () => {
                   className="select-basic medium"
                   placeholder="Seleccionar"
                   label="G&eacute;nero"
-                  data={genericList ? genericList[0] : []}
+                  data={genderList ? genderList : []}
                   value={null}
                   classNameLabel="text-black big bold"
                   direction={EDirection.column}

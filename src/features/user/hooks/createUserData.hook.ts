@@ -13,13 +13,15 @@ import { createUsers } from "../../../common/schemas";
 
 export default function useCreateUserData() {
   /*States*/
-  const [genericList, setGenericList] = useState([]);
+  const [genderList, setGenderList] = useState([]);
+  const [typeDocumentList, setTypeDocumentList] = useState([]);
   const [deparmentList, setDeparmentList] = useState([]);
   const [townList, setTownList] = useState([]);
   const [neighborhoodList, setneighborhoodList] = useState([]);
 
   /*instances*/
-  const { getListByGrouper, getListByParent } = useGenericListService();
+  const { getListByGrouper, getListByParent, getListByGroupers } =
+    useGenericListService();
   const resolver = useYupValidationResolver(createUsers);
 
   const { createUser } = useUserService();
@@ -36,36 +38,38 @@ export default function useCreateUserData() {
 
   /*UseEffects*/
   useEffect(() => {
-    const grouper = ["GENEROS","TIPOS_DOCUMENTOS"]
-    const list = [];
-    grouper.forEach((group) => {
-      getListByGrouper(group)
-        .then((response: ApiResponse<IGenericList>) => {
-          if (response && response?.operation?.code === EResponseCodes.OK) {
-            list.push(response.data);
-          }
-        })
-        .catch((e) => {});
-    });
-    setGenericList(list);
+    const groupers = ["GENEROS", "TIPOS_DOCUMENTOS"];
+    getListByGroupers(groupers)
+      .then((response: ApiResponse<IGenericList[]>) => {
+        if (response && response?.operation?.code === EResponseCodes.OK) {
+          setTypeDocumentList(
+            response.data
+              .filter((grouper) => grouper.grouper == "TIPOS_DOCUMENTOS")
+              .map((item) => {
+                const list = {
+                  name: item.itemCode,
+                  value: item.itemCode,
+                };
+                return list;
+              })
+          );
+          setGenderList(
+            response.data
+              .filter((grouper) => grouper.grouper == "GENEROS")
+              .map((item) => {
+                const list = {
+                  name: item.itemDescription,
+                  value: item.itemCode,
+                };
+                return list;
+              })
+          );
+        }
+      })
+      .catch((e) => {});
   }, []);
 
-  useEffect(() => {
-    const grouper = ["GENEROS","TIPOS_DOCUMENTOS"]
-    const list = [];
-    grouper.forEach((group) => {
-      getListByParent(group,{})
-        .then((response: ApiResponse<IGenericList>) => {
-          if (response && response?.operation?.code === EResponseCodes.OK) {
-            list.push(response.data);
-          }
-        })
-        .catch((e) => {});
-    });
-    setGenericList(list);
-  }, []);
-
-    /*Functions*/
+  /*Functions*/
   const onSubmitSignIn = handleSubmit(async (data: IUserCreate) => {
     const user = {
       names: data.names,
@@ -74,8 +78,8 @@ export default function useCreateUserData() {
       numberDocument: data.numberDocument,
       email: data.email,
       password: data.numberDocument,
-      userCreate: "test",
-      userModify: "test",
+      userCreate: authorization.user.names,
+      userModify: authorization.user.names,
     };
     const res = await createUser(user);
     if (res.operation.code == EResponseCodes.OK) {
@@ -112,11 +116,12 @@ export default function useCreateUserData() {
   };
 
   return {
-    genericList,
+    genderList,
+    typeDocumentList,
     onSubmitSignIn,
     CancelFunction,
     register,
     authorization,
-    errors
+    errors,
   };
 }

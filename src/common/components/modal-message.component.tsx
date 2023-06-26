@@ -15,6 +15,7 @@ function ModalMessageComponent(): React.JSX.Element {
     modal,
     message.onClickOutClose ? handleClickOutsideFn : () => {}
   );
+
   return (
     <div className={`modal ${message.show ? "is-open" : "modal-close"}`}>
       <div ref={modal} className="modal-container">
@@ -25,10 +26,14 @@ function ModalMessageComponent(): React.JSX.Element {
           >
             X
           </button>
-          <p className="text-black huge">{message.title}</p>
+          <p className="text-black huge">{message?.title}</p>
         </div>
         <div className="modal-content">
-          <p className="text-black large">{message.description}</p>
+          {typeof message.description != "string" ? (
+            message?.description
+          ) : (
+            <p className="text-black large">{message.description}</p>
+          )}
         </div>
         <div className="modal-footer">
           {message.cancelTitle ? (
