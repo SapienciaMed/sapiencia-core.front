@@ -14,15 +14,17 @@ import { useNavigate } from "react-router-dom";
 import { GiCheckMark } from "react-icons/gi";
 import { changePassword } from "../../../common/schemas/index";
 
-
 import "../../../styles/login.scss";
 import { AppContext } from "../../../common/contexts/app.context";
 
 function ChangePassword({ action }): React.JSX.Element {
   const resolver = useYupValidationResolver(changePassword);
-  const {setMessage } = useContext(AppContext);
-  const [modal,setModal] = useState<boolean>(false);
-  const [formData,setFormData] = useState(null);
+  const { setMessage } = useContext(AppContext);
+  const [modal, setModal] = useState<boolean>(false);
+  const [formData, setFormData] = useState(null);
+  const { setMessage } = useContext(AppContext);
+  const [modal, setModal] = useState<boolean>(false);
+  const [formData, setFormData] = useState(null);
   const {
     handleSubmit,
     register,
@@ -30,37 +32,59 @@ function ChangePassword({ action }): React.JSX.Element {
   } = useForm<IRequestRecoveryPassword>({ resolver });
   const showModal = () => {
     setModal(!modal);
-  }
+  };
   // // Metodo que hace la peticion al api
   const onSubmitSignIn = handleSubmit(async (data) => {
     setFormData(data);
     showModal();
   });
 
-const messageConfirm = {
-  title: "Cambiar Contraseña",
-  description: "¿Está Segur@ de cambiar la contraseña?",
-  show: true,
-  cancelTitle: "Cancelar",
-  OkTitle: "Si,cambiarla",
-  onOk: async () => {
-    await action(formData);
-    setMessage({});
-  },
-  onCancel:()=>{
-    showModal();
-    setMessage({});
+  const messageConfirm = {
+    title: "Cambiar Contraseña",
+    description: "¿Está Segur@ de cambiar la contraseña?",
+    show: true,
+    cancelTitle: "Cancelar",
+    OkTitle: "Si,cambiarla",
+    onOk: async () => {
+      await action(formData);
+      setMessage({});
+    },
+    onCancel: () => {
+      showModal();
+      setMessage({});
+    },
+  };
+
+  useEffect(() => {
+    if (modal) setMessage(messageConfirm);
+  }, [modal]);
+
+  if (modal) {
+    return <> </>;
   }
-}
 
-useEffect (() => {
-  if (modal) setMessage(messageConfirm);
-}, [modal])
+  const messageConfirm = {
+    title: "Cambiar Contraseña",
+    description: "¿Está Segur@ de cambiar la contraseña?",
+    show: true,
+    cancelTitle: "Cancelar",
+    OkTitle: "Si,cambiarla",
+    onOk: async () => {
+      await action(formData);
+      setMessage({});
+    },
+    onCancel: () => {
+      showModal();
+      setMessage({});
+    },
+  };
 
-  if(modal) {
-    return (
-        <> </>
-    );
+  useEffect(() => {
+    if (modal) setMessage(messageConfirm);
+  }, [modal]);
+
+  if (modal) {
+    return <> </>;
   }
 
   return (
@@ -80,7 +104,7 @@ useEffect (() => {
           >
             <InputShowPassword
               idInput="password"
-              className="input-basic"
+              className="input-basic-login"
               register={register}
               label="Nueva contraseña"
               classNameLabel="text-primary medium bold"
@@ -90,7 +114,7 @@ useEffect (() => {
             />
             <InputShowPassword
               idInput="confirmPassword"
-              className="input-basic"
+              className="input-basic-login"
               register={register}
               label="Confirmación"
               classNameLabel="text-primary medium bold"
@@ -113,7 +137,7 @@ useEffect (() => {
           </div>
         </div>
         <hr />
-        <FooterRecoveryPasssword/>
+        <FooterRecoveryPasssword />
       </article>
     </main>
   );
