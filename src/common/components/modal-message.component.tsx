@@ -22,7 +22,11 @@ function ModalMessageComponent(): React.JSX.Element {
         <div className="modal-header">
           <button
             className="close button-close tiny hover-three"
-            onClick={() => setMessage((prev) => ({ ...prev, show: false }))}
+            onClick={
+              message.onClose
+                ? message.onClose
+                : () => setMessage((prev) => ({ ...prev, show: false }))
+            }
           >
             X
           </button>
