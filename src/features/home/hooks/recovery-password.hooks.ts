@@ -1,9 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import useAuthService from "../../../common/hooks/auth-service.hook";
 import { EResponseCodes } from "../../../common/constants/api.enum";
 
 export function useRecoveryPassword() {
+  // STATE
+  const [showModal, setShowModal] = useState(false);
+
   const navigate = useNavigate();
 
   const [searchParams] = useSearchParams();
@@ -18,8 +21,7 @@ export function useRecoveryPassword() {
         token: tokenChangePassword,
       });
       if (operation.code === EResponseCodes.FAIL) {
-        alert("Error en token");
-        return navigate("../login");
+        setShowModal(!showModal);
       }
     } catch (error) {
       navigate("../login");
@@ -36,5 +38,6 @@ export function useRecoveryPassword() {
 
   return {
     token: tokenChangePassword,
+    showModal,
   };
 }
