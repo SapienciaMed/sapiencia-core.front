@@ -22,9 +22,6 @@ function ChangePassword({ action }): React.JSX.Element {
   const { setMessage } = useContext(AppContext);
   const [modal, setModal] = useState<boolean>(false);
   const [formData, setFormData] = useState(null);
-  const { setMessage } = useContext(AppContext);
-  const [modal, setModal] = useState<boolean>(false);
-  const [formData, setFormData] = useState(null);
   const {
     handleSubmit,
     register,
@@ -38,30 +35,6 @@ function ChangePassword({ action }): React.JSX.Element {
     setFormData(data);
     showModal();
   });
-
-  const messageConfirm = {
-    title: "Cambiar Contraseña",
-    description: "¿Está Segur@ de cambiar la contraseña?",
-    show: true,
-    cancelTitle: "Cancelar",
-    OkTitle: "Si,cambiarla",
-    onOk: async () => {
-      await action(formData);
-      setMessage({});
-    },
-    onCancel: () => {
-      showModal();
-      setMessage({});
-    },
-  };
-
-  useEffect(() => {
-    if (modal) setMessage(messageConfirm);
-  }, [modal]);
-
-  if (modal) {
-    return <> </>;
-  }
 
   const messageConfirm = {
     title: "Cambiar Contraseña",
