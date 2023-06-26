@@ -15,6 +15,8 @@ import { recoveryPassword } from "../../../common/schemas/index";
 import { useNavigate } from "react-router-dom";
 
 import "../../../styles/login.scss";
+import { EResponseCodes } from "../../../common/constants/api.enum";
+import { AppContext } from "../../../common/contexts/app.context";
 
 function RecoveryPassword(): React.JSX.Element {
   const navigate = useNavigate();
@@ -43,8 +45,26 @@ function RecoveryPassword(): React.JSX.Element {
 }
 
 const FormRecoveryPassword = (): React.JSX.Element => {
+  // react router dom
+  const navigate = useNavigate();
+
+  // context
+  const { setMessage } = useContext(AppContext);
+
   // // Servicos
   const { recoveryPassword: recoveryPasswordService } = useAuthService();
+
+  // modal
+  const messageExito = {
+    title: "¡Correo enviado!",
+    description: "El correo se ha enviado exitosamente",
+    show: true,
+    OkTitle: "Aceptar",
+    onOk: async () => {
+      setMessage({});
+      navigate("../login");
+    },
+  };
 
   const resolver = useYupValidationResolver(recoveryPassword);
 
@@ -68,7 +88,9 @@ const FormRecoveryPassword = (): React.JSX.Element => {
       data
     );
 
-    setMsgFailedRecovery(operation.message);
+    if (operation.code === EResponseCodes.OK) {
+      setMessage(messageExito);
+    }
   });
 
   return (
