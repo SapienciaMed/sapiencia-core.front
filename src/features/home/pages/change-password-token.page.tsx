@@ -19,21 +19,23 @@ function ChangePasswordRecovery(): React.JSX.Element {
 
   const { changePasswordToken } = useAuthService();
 
-  // modal
-  const messageTokenInvalid = {
-    title: "¡Error en el token!",
-    description:
-      "El token es invalido, vuelva a intentarlo generando nuevamente un correo",
-    show: true,
-    OkTitle: "Aceptar",
-    onOk: async () => {
-      setMessage({});
-      navigate("../login");
-    },
-  };
-
   useEffect(() => {
-    showModal && setMessage(messageTokenInvalid);
+    if (showModal)
+      setMessage({
+        title: "¡Error en el token!",
+        description:
+          "El token es invalido, vuelva a intentarlo generando nuevamente un correo",
+        show: true,
+        OkTitle: "Aceptar",
+        onClose: () => {
+          setMessage({});
+          navigate("../login");
+        },
+        onOk: () => {
+          setMessage({});
+          navigate("../login");
+        },
+      });
   }, [showModal]);
 
   // callback invoke function api
@@ -45,6 +47,17 @@ function ChangePasswordRecovery(): React.JSX.Element {
 
     if (operation.code === EResponseCodes.OK) {
       navigate("../login");
+    } else {
+      setMessage({
+        title: "Ocurrio un error!",
+        description:
+          "El token es invalido o ha ocurrido un error inesperado, intenta nuevamente",
+        show: true,
+        OkTitle: "Aceptar",
+        onOk: () => {
+          setMessage({});
+        },
+      });
     }
   };
 
