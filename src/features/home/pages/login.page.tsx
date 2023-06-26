@@ -111,7 +111,7 @@ const FormSignIn = (): React.JSX.Element => {
       <FormComponent className="form-signIn" action={onSubmitSignIn}>
         <InputComponent
           idInput="numberDocument"
-          className="input-basic"
+          className="input-basic-login"
           typeInput="text"
           register={register}
           label="Número de identificación"
@@ -122,7 +122,7 @@ const FormSignIn = (): React.JSX.Element => {
         />
         <InputShowPassword
           idInput="password"
-          className="input-basic"
+          className="input-basic-login"
           register={register}
           label="Digite su contraseña"
           classNameLabel="text-primary medium bold"

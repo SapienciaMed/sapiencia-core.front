@@ -80,7 +80,7 @@ const FormRecoveryPassword = (): React.JSX.Element => {
       >
         <InputComponent
           idInput="numberDocument"
-          className="input-basic"
+          className="input-basic-login"
           typeInput="text"
           register={register}
           label="Documento de identidad"
@@ -91,7 +91,7 @@ const FormRecoveryPassword = (): React.JSX.Element => {
         />
         <InputComponent
           idInput="email"
-          className="input-basic"
+          className="input-basic-login"
           typeInput="text"
           register={register}
           label="Correo electronico"
