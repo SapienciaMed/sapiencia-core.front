@@ -12,10 +12,10 @@ import {
 } from "../../../common/components/Form/index";
 import { useNavigate } from "react-router-dom";
 import { GiCheckMark } from "react-icons/gi";
-
 import { changePassword } from "../../../common/schemas/index";
 
 import "../../../styles/login.scss";
+import { AppContext } from "../../../common/contexts/app.context";
 
 function ChangePassword({ action }): React.JSX.Element {
   const resolver = useYupValidationResolver(changePassword);
@@ -32,7 +32,8 @@ function ChangePassword({ action }): React.JSX.Element {
   };
   // // Metodo que hace la peticion al api
   const onSubmitSignIn = handleSubmit(async (data) => {
-    await action(data);
+    setFormData(data);
+    showModal();
   });
 
   const messageConfirm = {
