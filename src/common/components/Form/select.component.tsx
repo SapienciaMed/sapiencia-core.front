@@ -16,7 +16,7 @@ interface ISelectProps<T> {
   direction?: EDirection;
   children?: React.JSX.Element | React.JSX.Element[];
   errors?: FieldErrors<any>;
-  onchange?:(event: any)=>void;
+  setValue?: React.Dispatch<any>;
 }
 
 function LabelElement({ label, idInput, classNameLabel }): React.JSX.Element {
@@ -37,19 +37,17 @@ function SelectElement({
   data,
   value,
   register,
-  onchange
+  setValue
 }): React.JSX.Element {
   const [selectedCity, setSelectedCity] = useState(value);
-  console.log(onchange)
   return (
-    <Dropdown {...register(idInput)} value={selectedCity} onChange={(e) => {
-      if (onchange) {
-        onchange;
-        setSelectedCity(e.value);
-      }
-      setSelectedCity(e.value);
-    }} options={data} optionLabel="name" 
-      placeholder={placeholder} className={className}  />
+    <Dropdown {...register(idInput)} value={selectedCity} onChange={(e) =>{ if (setValue) {
+      setValue(e.value);
+      setSelectedCity(e.value)
+    }
+    setSelectedCity(e.value);
+  }} options={data} optionLabel="name" 
+      placeholder={placeholder} className={className} />
   );
 }
 
@@ -65,7 +63,7 @@ export function SelectComponent({
   direction = EDirection.column,
   children,
   errors,
-  onchange
+  setValue
 }: ISelectProps<any>): React.JSX.Element {
   return (
     <div
@@ -81,7 +79,7 @@ export function SelectComponent({
         classNameLabel={classNameLabel}
       />
       <div>
-        <SelectElement idInput={idInput} className={className} placeholder={placeholder} data={data} onchange={onchange} value={value} register={register}/>
+        <SelectElement idInput={idInput} className={className} setValue={setValue} placeholder={placeholder} data={data} value={value} register={register}/>
         {errors[idInput]?.message && <span className="icon-error"></span>}
       </div>
       {errors[idInput]?.message && (

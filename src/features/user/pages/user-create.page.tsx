@@ -19,7 +19,7 @@ const CreateUserPage = () => {
     errors,
     deparmentList,
     townList,
-    neighborhoodList
+    neighborhoodList,
   } = useCreateUserData();
   return (
     <Fragment>
@@ -33,9 +33,9 @@ const CreateUserPage = () => {
               action={onSubmitSignIn}
             >
               <div className="grid-form-4-container container-sections-forms ">
-                <legend className="grid-span-4-columns">
-                  {"Datos básicos"}
-                </legend>
+                <p className="grid-span-4-columns  text-black large bold mb-5px mt-5px">
+                  Datos básicos
+                </p>
                 <div className="form-group column">
                   <label className="text-black big bold" htmlFor="">
                     Documento de identidad
@@ -141,21 +141,21 @@ const CreateUserPage = () => {
               </div>
 
               <div className="grid-form-4-container container-sections-forms">
-                <legend className="grid-span-4-columns">
-                  {"Datos de ubicación"}
-                </legend>
+                <p className="grid-span-4-columns mb-5px mt-5px text-black large bold">
+                  Datos de ubicación
+                </p>
                 <SelectComponent
                   idInput="deparment"
                   register={register}
                   className="select-basic medium"
                   placeholder="Seleccione"
                   label="Departamento"
-                  data={deparmentList ? deparmentList: [{}]}
+                  data={deparmentList ? deparmentList : [{}]}
+                  setValue={setDeparment}
                   value={null}
                   classNameLabel="text-black big bold"
                   direction={EDirection.column}
                   errors={errors}
-                  onchange={(e)=>{setDeparment(e.target.value)}}
                 />
                 <SelectComponent
                   idInput="town"
@@ -164,11 +164,11 @@ const CreateUserPage = () => {
                   placeholder="Seleccione"
                   label="Municipio"
                   data={townList ? townList : [{}]}
+                  setValue={setTown}
                   value={null}
                   classNameLabel="text-black big bold"
                   direction={EDirection.column}
                   errors={errors}
-                  onchange={(e)=>{setTown(e.target.value)}}
                 />
                 <SelectComponent
                   idInput="neighborhood"

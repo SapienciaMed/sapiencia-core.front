@@ -125,33 +125,33 @@ export default function useCreateUserData() {
       numberDocument: data.numberDocument,
       email: data.email,
       password: data.numberDocument,
-      userCreate: authorization.user.names,
-      userModify: authorization.user.names,
+      userCreate: authorization?.user?.names,
+      userModify: authorization?.user?.names,
     };
-    const res = await createUser(user);
-    if (res.operation.code == EResponseCodes.OK) {
-      setMessage({
-        OkTitle: "Aceptar",
-        description: "Se ha creado el usuario en el sistema de forma exitosa",
-        title: "Exito al crear usuario",
-        show: true,
-        type: EResponseCodes.OK,
+    const res = await createUser(user).then((response: ApiResponse<IUserCreate>) => {
+      if (response && response?.operation?.code === EResponseCodes.OK) {
+        setMessage({
+          OkTitle: "Aceptar",
+          description: "Se ha creado el usuario en el sistema de forma exitosa",
+          title: "Crear usuario",
+          show: true,
+          type: EResponseCodes.OK,
+        });
+      }}).catch((err) => {
+        setMessage({
+          type: EResponseCodes.FAIL,
+          title: "Crear Usuario",
+          description: "hubo problemas creando el usuario",
+          show: true,
+          OkTitle: "Aceptar",
+        });
       });
-    } else {
-      setMessage({
-        type: EResponseCodes.FAIL,
-        title: "Fallo al crear Usuario",
-        description: res.operation.message,
-        show: true,
-        OkTitle: "Aceptar",
-      });
-    }
   });
 
   const CancelFunction = () => {
     setMessage({
       show: true,
-      title: "Cancelar creación de usuario",
+      title: "Crear usuario",
       description: "¿Seguro que desea cancelar la creación de usuario?",
       OkTitle: "Continuar",
       cancelTitle: "Si,Cancelar",
