@@ -1,10 +1,10 @@
 import { EResponseCodes } from "../constants/api.enum";
-import { IAuthorization, IUser } from "../interfaces/auth.interfaces";
+import { IUser } from "../interfaces/auth.interfaces";
 import { IUserCreate } from "../interfaces/user.interfaces";
 import { ApiResponse, IPagingData } from "../utils/api-response";
 import useCrudService from "./crud-service.hook";
 
-export function useUserService(token=null) {
+export function useUserService(token) {
   const baseURL: string = "http://localhost:3333";
   const userUrl: string = "/api/v1/user";
   const { get, post, put, deleted } = useCrudService(token, baseURL);

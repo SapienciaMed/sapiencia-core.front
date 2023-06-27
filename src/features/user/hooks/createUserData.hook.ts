@@ -25,8 +25,8 @@ export default function useCreateUserData() {
   const { getListByGrouper, getListByParent, getListByGroupers } =
     useGenericListService();
   const resolver = useYupValidationResolver(createUsers);
-
-  const { createUser } = useUserService();
+  const token = window.localStorage.getItem('token');
+  const { createUser } = useUserService(token);
 
   const navigate = useNavigate();
 

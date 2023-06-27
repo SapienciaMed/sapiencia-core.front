@@ -59,6 +59,26 @@
   &.error {
     border: 1px solid $alert-failed-color;
   }
+
+  &.tiny {
+    height: 1em;
+  }
+
+  &.small {
+    height: 1.5em;
+  }
+
+  &.medium {
+    height: 2.15em;
+  }
+
+  &.big {
+    height: 2.5em;
+  }
+
+  &.large {
+    height: 3em;
+  }
 }
 
 .input-group-basic {
