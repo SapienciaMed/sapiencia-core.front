@@ -68,7 +68,8 @@ function RoleListPage(props: IAppProps) {
           title: "Detalles",
           show: true,
           OkTitle: "Aceptar",
-          description: <DetailsComponent rows={rows} />
+          description: <DetailsComponent rows={rows} />,
+          background: true
         })
       },
     },
