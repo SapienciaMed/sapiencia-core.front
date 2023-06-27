@@ -14,11 +14,16 @@ const CreateUserPage = () => {
     onSubmitSignIn,
     CancelFunction,
     register,
+    setTown,
+    setDeparment,
     errors,
+    deparmentList,
+    townList,
+    neighborhoodList
   } = useCreateUserData();
   return (
     <Fragment>
-      <div className="full-height">
+      <div className="full-height container-form-grid">
         <div className="container-form">
           <h1 className="text-black huge ml-24px">Crear usuario del sistema</h1>
           <div>
@@ -145,11 +150,12 @@ const CreateUserPage = () => {
                   className="select-basic medium"
                   placeholder="Seleccione"
                   label="Departamento"
-                  data={[{}]}
+                  data={deparmentList ? deparmentList: [{}]}
                   value={null}
                   classNameLabel="text-black big bold"
                   direction={EDirection.column}
                   errors={errors}
+                  onchange={(e)=>{setDeparment(e.target.value)}}
                 />
                 <SelectComponent
                   idInput="town"
@@ -157,11 +163,12 @@ const CreateUserPage = () => {
                   className="select-basic medium"
                   placeholder="Seleccione"
                   label="Municipio"
-                  data={[{}]}
+                  data={townList ? townList : [{}]}
                   value={null}
                   classNameLabel="text-black big bold"
                   direction={EDirection.column}
                   errors={errors}
+                  onchange={(e)=>{setTown(e.target.value)}}
                 />
                 <SelectComponent
                   idInput="neighborhood"
@@ -169,7 +176,7 @@ const CreateUserPage = () => {
                   className="select-basic medium"
                   placeholder="Seleccione"
                   label="Barrio - opcional"
-                  data={[]}
+                  data={neighborhoodList ? neighborhoodList : [{}]}
                   value={null}
                   classNameLabel="text-black big bold"
                   direction={EDirection.column}

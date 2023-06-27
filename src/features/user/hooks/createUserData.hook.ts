@@ -16,7 +16,9 @@ export default function useCreateUserData() {
   const [genderList, setGenderList] = useState([]);
   const [typeDocumentList, setTypeDocumentList] = useState([]);
   const [deparmentList, setDeparmentList] = useState([]);
+  const [deparment, setDeparment] = useState("")
   const [townList, setTownList] = useState([]);
+  const [town, setTown] = useState("") 
   const [neighborhoodList, setneighborhoodList] = useState([]);
 
   /*instances*/
@@ -68,6 +70,51 @@ export default function useCreateUserData() {
       })
       .catch((e) => {});
   }, []);
+
+  useEffect(() => {
+    getListByParent({ grouper: "DEPARTAMENTOS", parentItemCode: "COL" })
+      .then((response: ApiResponse<IGenericList[]>) => {
+        if (response && response?.operation?.code === EResponseCodes.OK) {
+          setDeparmentList(response.data.map((item)=>{
+            const list = {
+              name: item.itemDescription,
+              value: item.itemCode,
+            };
+            return list;
+          }))
+        }})
+      .catch((e) => {});
+  }, []);
+
+  useEffect(() => {
+    getListByParent({ grouper: "MUNICIPIOS", parentItemCode: deparment })
+      .then((response: ApiResponse<IGenericList[]>) => {
+        if (response && response?.operation?.code === EResponseCodes.OK) {
+          setTownList(response.data.map((item)=>{
+            const list = {
+              name: item.itemDescription,
+              value: item.itemCode,
+            };
+            return list;
+          }))
+        }})
+      .catch((err) => {});
+  }, [deparment]);
+
+  useEffect(() => {
+    getListByParent({ grouper: "BARRIOS", parentItemCode: town })
+      .then((response: ApiResponse<IGenericList[]>) => {
+        if (response && response?.operation?.code === EResponseCodes.OK) {
+          setneighborhoodList(response.data.map((item)=>{
+            const list = {
+              name: item.itemDescription,
+              value: item.itemCode,
+            };
+            return list;
+          }))
+        }})
+      .catch((err) => {});
+  }, [town]);
 
   /*Functions*/
   const onSubmitSignIn = handleSubmit(async (data: IUserCreate) => {
@@ -121,7 +168,12 @@ export default function useCreateUserData() {
     onSubmitSignIn,
     CancelFunction,
     register,
+    setDeparment,
+    setTown,
     authorization,
+    deparmentList,
+    townList,
+    neighborhoodList,
     errors,
   };
 }

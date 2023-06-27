@@ -40,15 +40,14 @@ export function useGenericListService() {
   }
 
   async function getListByParent(
-    grouper: string,
     params: object
-  ): Promise<ApiResponse<IGenericList>> {
+  ): Promise<ApiResponse<IGenericList[]>> {
     try {
       const endpoint: string = `/get-by-parent/`;
       return await get(`${listUrl}${endpoint}`, params);
     } catch (error) {
       return new ApiResponse(
-        {} as IGenericList,
+        {} as IGenericList[],
         EResponseCodes.FAIL,
         "Error no controlado"
       );

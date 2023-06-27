@@ -48,12 +48,18 @@
   );
 }
 
+.container-form-grid {
+  display: grid;
+  grid-template-rows: 1fr 3em;
+}
+
 .container-form {
   background: #ffffff 0% 0% no-repeat padding-box;
   border: 1px solid #e2e2e2;
   border-radius: 15px;
   opacity: 1;
   margin: 2em;
+  height: 70%;
 }
 
 .container-sections-forms {
@@ -73,6 +79,7 @@
   height: 9vh;
   background: #eeeeee 0% 0% no-repeat padding-box;
 }
+
 
 @media (min-width: 1024px) {
   .dashboard-margin {
