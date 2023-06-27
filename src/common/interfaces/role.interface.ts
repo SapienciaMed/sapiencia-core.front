@@ -21,6 +21,6 @@ export interface IRoleFilters {
 }
 
 export interface IRequestRole {
-    numberDocument: string;
-    password: string;
+    nombreRol: string;
+    descripcionRol: string;
 }

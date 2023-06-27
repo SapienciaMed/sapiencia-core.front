@@ -73,6 +73,8 @@ export function useRoleData(roleId: string) {
             }
           });
           setRoleData(role);
+          setValueRegister("nombreRol", role.name);
+          setValueRegister("descripcionRol", role.description);
           setTransferAvailableData(optionsAvailableTransfer);
           setTransferSelectedData(optionsSelectedTransfer);
         };

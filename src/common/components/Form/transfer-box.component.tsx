@@ -24,9 +24,11 @@ export function TransferBoxComponent({ idInput, data, register, setValueRegister
     }, [data]);
 
     useEffect(() => {
-        if(available.length != 0) setAvailableItems(available);
-        if(selected.length != 0) setSelectedItems(selected);
-    }, [available, selected])
+        if(available.length != 0 || selected.length != 0) {
+            setAvailableItems(available);
+            setSelectedItems(selected);
+        }
+    }, [available, selected]);
 
     const handleSelectItem = () => {
         const keys = Object.keys(stateSelected);
