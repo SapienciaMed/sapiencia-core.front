@@ -74,7 +74,7 @@ export function SelectComponent({
   direction = EDirection.column,
   children,
   errors = {},
-  stateProps
+  stateProps,
   setValue
 }: ISelectProps<any>): React.JSX.Element {
   return (
