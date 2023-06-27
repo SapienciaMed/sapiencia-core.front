@@ -2,14 +2,14 @@ import React, { useState, forwardRef, useImperativeHandle, useEffect } from "rea
 import { ITableAction, ITableElement } from "../interfaces/table.interfaces";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { Paginator, PaginatorCurrentPageReportOptions, PaginatorNextPageLinkOptions, PaginatorPageChangeEvent, PaginatorPageLinksOptions, PaginatorPrevPageLinkOptions } from "primereact/paginator";
-import iconView from "../../public/images/icons/icon-view.png";
+import { Paginator, PaginatorNextPageLinkOptions, PaginatorPageChangeEvent, PaginatorPageLinksOptions, PaginatorPrevPageLinkOptions } from "primereact/paginator";
 import iconEdit from "../../public/images/icons/icon-edit.png";
 import iconDelete from "../../public/images/icons/icon-delete.png";
 import { IPagingData } from "../utils/api-response";
 import useCrudService from "../hooks/crud-service.hook";
 import { EResponseCodes } from "../constants/api.enum";
 import { classNames } from "primereact/utils";
+import { FaPencilAlt, FaEye, FaTrashAlt } from "react-icons/Fa";
 
 interface IProps<T> {
   url: string;
@@ -108,14 +108,14 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
   }
 
   // Metodo que retorna el icono o nombre de la accion
-  function getIconElement(icon: string, element: "name" | "src"): string {
+  function getIconElement(icon: string, element: "name" | "src") {
     switch (icon) {
       case "Detail":
-        return element == "name" ? "Detalle" : iconView;
+        return element == "name" ? "Detalle" : <FaEye fontSize="1.3em"/>;
       case "Edit":
-        return element == "name" ? "Editar" : iconEdit;
+        return element == "name" ? "Editar" : <FaPencilAlt fontSize="1.3em"/>;
       case "Delete":
-        return element == "name" ? "Eliminar" : iconDelete;
+        return element == "name" ? "Eliminar" : <FaTrashAlt fontSize="1.3em"/>;
       default:
         return "";
     }
@@ -127,7 +127,7 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
       <div className="spc-table-action-button">
         {actions.map((action) => (
           <div key={action.icon} onClick={() => action.onClick(props.row)}>
-            <img src={getIconElement(action.icon, "src")} alt={action.icon} />
+            {getIconElement(action.icon, "src")}
           </div>
         ))}
       </div>

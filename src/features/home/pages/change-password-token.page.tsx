@@ -49,7 +49,7 @@ function ChangePasswordRecovery(): React.JSX.Element {
       navigate("../login");
     } else {
       setMessage({
-        title: "Ocurrio un error!",
+        title: "¡Ocurrio un error!",
         description:
           "El token es invalido o ha ocurrido un error inesperado, intenta nuevamente",
         show: true,
@@ -57,6 +57,7 @@ function ChangePasswordRecovery(): React.JSX.Element {
         onOk: () => {
           setMessage({});
         },
+        background: true,
       });
     }
   };

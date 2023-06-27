@@ -78,16 +78,18 @@ const FormRecoveryPassword = (): React.JSX.Element => {
           setMessage({});
           navigate("../login");
         },
+        background: true,
       });
     } else {
       setMessage({
-        title: "Ocurrio un error!",
+        title: "¡Ocurrio un error!",
         description: operation.message,
         show: true,
         OkTitle: "Aceptar",
         onOk: () => {
           setMessage({});
         },
+        background: true,
       });
     }
   });
