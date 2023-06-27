@@ -4,7 +4,7 @@ import { EResponseCodes } from "../constants/api.enum";
 export interface IMessage {
   type?: EResponseCodes;
   title?: string;
-  description?: string | JSXElement;
+  description?: string | React.JSX.Element;
   show?: boolean;
   OkTitle?: string;
   cancelTitle?: string;
