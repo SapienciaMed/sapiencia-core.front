@@ -42,7 +42,7 @@ function RoleListPage(props: IAppProps) {
     },
     {
       fieldName: "description",
-      header: "Descriptión",
+      header: "Descripción",
       mobile: false
     },
   ];
@@ -100,13 +100,14 @@ function RoleListPage(props: IAppProps) {
                   OkTitle: "Aceptar",
                   onOk: () => {
                     setMessage({});
-                  }
+                  },
+                  background: true
                 })
                 loadTableData({aplicationId: application.id})
               }
             });
-            
-          }
+          },
+          background: true
         })
       },
     },

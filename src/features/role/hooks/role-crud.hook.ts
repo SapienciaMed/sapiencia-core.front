@@ -147,7 +147,8 @@ export function useRoleData(roleId: string) {
               onOk: () => {
                 onCancelNew();
                 setMessage({});
-              }
+              },
+              background: true
             });
           } else {
             setMessage({
@@ -157,11 +158,13 @@ export function useRoleData(roleId: string) {
               OkTitle: "Aceptar",
               onOk: () => {
                 setMessage({});
-              }
+              },
+              background: true
             });
           }
         });
-      }
+      },
+      background: true
     });
   });
 
@@ -201,7 +204,8 @@ export function useRoleData(roleId: string) {
               onOk: () => {
                 onCancelEdit();
                 setMessage({});
-              }
+              },
+              background: true
             });
           } else {
             setMessage({
@@ -211,11 +215,13 @@ export function useRoleData(roleId: string) {
               OkTitle: "Aceptar",
               onOk: () => {
                 setMessage({});
-              }
+              },
+              background: true
             });
           }
         });
-      }
+      },
+      background: true
     });
   });
 
