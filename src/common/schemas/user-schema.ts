@@ -35,6 +35,11 @@ export const createUsers = yup.object({
     .string()
     .email("Correo no valido")
     .required("El correo es obligatorio"),
+  gender: yup.string().required("El género es obligatorio"),
+  numberphone: yup.string().required("El número de contacto es obligatorio"),
+  deparment: yup.string().required("El departamento es obligatorio"),
+  town: yup.string().required("El municipio es obligatorio")
+  
 });
 
 export const changePassword = yup.object({

@@ -58,7 +58,7 @@ const CreateUserPage = () => {
                       typeInput="text"
                       register={register}
                       classNameLabel="text-black big bold"
-                      direction={EDirection.column}
+                      direction={EDirection.row}
                       errors={errors}
                       placeholder={""}
                       iconLegend={"No."}

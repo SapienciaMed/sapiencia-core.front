@@ -142,7 +142,7 @@ export default function useCreateUserData() {
         setMessage({
           type: EResponseCodes.FAIL,
           title: "Crear Usuario",
-          description: "hubo problemas creando el usuario",
+          description: "El usuario ya se encuentra registrado en el sistema",
           show: true,
           OkTitle: "Aceptar",
           background:true
