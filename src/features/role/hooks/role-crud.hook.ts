@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
 import { roleValidator } from "../../../common/schemas";
 import { IRequestRole, IRole } from "../../../common/interfaces/role.interface";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { AppContext } from "../../../common/contexts/app.context";
 import { EResponseCodes } from "../../../common/constants/api.enum";
 
@@ -33,11 +33,11 @@ export function useRoleData(roleId: string) {
     ITransferBoxTemplate[]
   >([]);
   const [transferAvailableData, setTransferAvailableData] = useState<
-  ITransferBoxTemplate[]
->([]);
+    ITransferBoxTemplate[]
+  >([]);
   const [transferSelectedData, setTransferSelectedData] = useState<
-  ITransferBoxTemplate[]
->([]);
+    ITransferBoxTemplate[]
+  >([]);
 
   const { authorization, setMessage, application } = useContext(AppContext);
   const { GetOptions, CreateRole, UpdateRole, GetRole } = useRoleService();
@@ -51,9 +51,9 @@ export function useRoleData(roleId: string) {
   } = useForm<IRequestRole>({ resolver });
 
   useEffect(() => {
-    if(roleId) {
+    if (roleId) {
       GetRole(parseInt(roleId)).then(response => {
-        if(response.operation.code === EResponseCodes.OK) {
+        if (response.operation.code === EResponseCodes.OK) {
           const role = response.data;
           const roleActions = role.actions.map(action => action);
           const optionsAvailableTransfer: ITransferBoxTemplate[] = [];
@@ -62,7 +62,7 @@ export function useRoleData(roleId: string) {
             const filteredChildren = obj.children.filter(child => {
               return roleActions.some(item => item.id === child.id);
             });
-          
+
             if (filteredChildren.length > 0) {
               optionsSelectedTransfer.push({
                 ...obj,
@@ -92,13 +92,13 @@ export function useRoleData(roleId: string) {
               id: item.id,
               children: item.actions
                 ? item.actions.map(
-                    (child): ITransferBoxChildren => ({
-                      key: `${item.id}-${child.id}`,
-                      label: child.name,
-                      id: child.id,
-                      parentId: item.id,
-                    })
-                  )
+                  (child): ITransferBoxChildren => ({
+                    key: `${item.id}-${child.id}`,
+                    label: child.name,
+                    id: child.id,
+                    parentId: item.id,
+                  })
+                )
                 : null,
             };
           }
@@ -108,43 +108,55 @@ export function useRoleData(roleId: string) {
       }
     });
   }, [application]);
-  
+
   const onSubmitNewRole = handleSubmit(async (data: IRoleForm) => {
-    const actionsSelected: IActions[] = [];
-    data.accionesRol.selected.forEach((item) => {
-      const optionSelected = options.find((option) => option.id === item.id);
-      optionSelected.actions
-        .filter((object) =>
-          item.children.some((filtro) => object.id === filtro.id)
-        )
-        .forEach((action) => actionsSelected.push(action));
-    });
-    CreateRole({
-      name: data.nombreRol,
-      description: data.descripcionRol,
-      aplicationId: application.id,
-      userCreate: authorization.user.numberDocument,
-      actions: actionsSelected,
-    }).then((response) => {
-      if (response.operation.code === EResponseCodes.OK) {
-        setMessage({
-          title: "¡Se ha completado el proceso!",
-          description: "Opciones y privilegios de rol, agregados a la lista correctamente",
-          show: true,
-          OkTitle: "Aceptar",
-          onOk: () => {
-            onCancelNew();
-            setMessage({});
-          }
+    setMessage({
+      title: "Editar",
+      description: "¿Estas segur@ de guardar la información en el sistema?",
+      OkTitle: "Aceptar",
+      cancelTitle: "Cancelar",
+      show: true,
+      onCancel: () => {
+        setMessage({});
+      },
+      onOk: () => {
+        const actionsSelected: IActions[] = [];
+        data.accionesRol.selected.forEach((item) => {
+          const optionSelected = options.find((option) => option.id === item.id);
+          optionSelected.actions
+            .filter((object) =>
+              item.children.some((filtro) => object.id === filtro.id)
+            )
+            .forEach((action) => actionsSelected.push(action));
         });
-      } else {
-        setMessage({
-          title: "Hubo un problema.",
-          description: response.operation.message,
-          show: true,
-          OkTitle: "Aceptar",
-          onOk: () => {
-            setMessage({});
+        CreateRole({
+          name: data.nombreRol,
+          description: data.descripcionRol,
+          aplicationId: application.id,
+          userCreate: authorization.user.numberDocument,
+          actions: actionsSelected,
+        }).then((response) => {
+          if (response.operation.code === EResponseCodes.OK) {
+            setMessage({
+              title: "¡Se ha completado el proceso!",
+              description: "Opciones y privilegios de rol, agregados a la lista correctamente",
+              show: true,
+              OkTitle: "Aceptar",
+              onOk: () => {
+                onCancelNew();
+                setMessage({});
+              }
+            });
+          } else {
+            setMessage({
+              title: "Hubo un problema.",
+              description: response.operation.message,
+              show: true,
+              OkTitle: "Aceptar",
+              onOk: () => {
+                setMessage({});
+              }
+            });
           }
         });
       }
@@ -152,41 +164,53 @@ export function useRoleData(roleId: string) {
   });
 
   const onSubmitEditRole = handleSubmit(async (data: IRoleForm) => {
-    const actionsSelected: IActions[] = [];
-    data.accionesRol.selected.forEach((item) => {
-      const optionSelected = options.find((option) => option.id === item.id);
-      optionSelected.actions
-        .filter((object) =>
-          item.children.some((filtro) => object.id === filtro.id)
-        )
-        .forEach((action) => actionsSelected.push(action));
-    });
-    UpdateRole(parseInt(roleId), {
-      name: data.nombreRol,
-      description: data.descripcionRol,
-      aplicationId: application.id,
-      userModify: authorization.user.numberDocument,
-      actions: actionsSelected,
-    }).then((response) => {
-      if (response.operation.code === EResponseCodes.OK) {
-        setMessage({
-          title: "¡Se ha completado el proceso!",
-          description: "Opciones y privilegios de rol, agregados a la lista correctamente",
-          show: true,
-          OkTitle: "Aceptar",
-          onOk: () => {
-            onCancelEdit();
-            setMessage({});
-          }
+    setMessage({
+      title: "Editar",
+      description: "¿Estas segur@ de guardar la información en el sistema?",
+      OkTitle: "Aceptar",
+      cancelTitle: "Cancelar",
+      show: true,
+      onCancel: () => {
+        setMessage({});
+      },
+      onOk: () => {
+        const actionsSelected: IActions[] = [];
+        data.accionesRol.selected.forEach((item) => {
+          const optionSelected = options.find((option) => option.id === item.id);
+          optionSelected.actions
+            .filter((object) =>
+              item.children.some((filtro) => object.id === filtro.id)
+            )
+            .forEach((action) => actionsSelected.push(action));
         });
-      } else {
-        setMessage({
-          title: "Hubo un problema.",
-          description: response.operation.message,
-          show: true,
-          OkTitle: "Aceptar",
-          onOk: () => {
-            setMessage({});
+        UpdateRole(parseInt(roleId), {
+          name: data.nombreRol,
+          description: data.descripcionRol,
+          aplicationId: application.id,
+          userModify: authorization.user.numberDocument,
+          actions: actionsSelected,
+        }).then((response) => {
+          if (response.operation.code === EResponseCodes.OK) {
+            setMessage({
+              title: "¡Se ha completado el proceso!",
+              description: "Opciones y privilegios de rol, agregados a la lista correctamente",
+              show: true,
+              OkTitle: "Aceptar",
+              onOk: () => {
+                onCancelEdit();
+                setMessage({});
+              }
+            });
+          } else {
+            setMessage({
+              title: "Hubo un problema.",
+              description: response.operation.message,
+              show: true,
+              OkTitle: "Aceptar",
+              onOk: () => {
+                setMessage({});
+              }
+            });
           }
         });
       }

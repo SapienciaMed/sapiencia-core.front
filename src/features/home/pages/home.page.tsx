@@ -12,7 +12,6 @@ function HomePage(props: IAppProps) {
 
   useEffect(() => {
     subscribe("modalCloseSession", (data) => {
-      console.log(data);
       setMessage(data.detail);
     });
     return () => {
