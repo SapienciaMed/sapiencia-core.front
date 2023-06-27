@@ -22,7 +22,7 @@ export default function useCreateUserData() {
   const [neighborhoodList, setneighborhoodList] = useState([]);
 
   /*instances*/
-  const { getListByGrouper, getListByParent, getListByGroupers } =
+  const { getListByParent, getListByGroupers } =
     useGenericListService();
   const resolver = useYupValidationResolver(createUsers);
   const token = window.localStorage.getItem('token');
@@ -136,6 +136,7 @@ export default function useCreateUserData() {
           title: "Crear usuario",
           show: true,
           type: EResponseCodes.OK,
+          background:true
         });
       }}).catch((err) => {
         setMessage({
@@ -144,6 +145,7 @@ export default function useCreateUserData() {
           description: "hubo problemas creando el usuario",
           show: true,
           OkTitle: "Aceptar",
+          background:true
         });
       });
   });
@@ -159,6 +161,7 @@ export default function useCreateUserData() {
         navigate("/");
         setMessage((prev) => ({ ...prev, show: false }));
       },
+      background:true,
     });
   };
 

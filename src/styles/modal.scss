@@ -95,6 +95,10 @@
   display: none;
   justify-content: center;
   align-items: center;
+
+  &.modal-bg{
+    background-color: #00000080;
+  }
 }
 
 .modal-container {
