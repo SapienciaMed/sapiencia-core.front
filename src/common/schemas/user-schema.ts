@@ -40,15 +40,17 @@ export const createUsers = yup.object({
 export const changePassword = yup.object({
   password: yup
     .string()
-    .min(7, "Ingrese al menos 7 caracteres")
-    .required("La contraseña es obligatoria"),
+    .min(8, "Ingrese al menos 8 caracteres")
+    .matches(/[0-9]/, "La contraseña debe contener al menos un número.")
+    .required("La contraseña es obligatoria."),
   confirmPassword: yup
     .string()
-    .min(7, "Ingrese al menos 7 caracteres")
-    .required("La contraseña es obligatoria")
+    .min(8, "Ingrese al menos 8 caracteres")
+    .required("La contraseña es obligatoria.")
+    .matches(/[0-9]/, "La contraseña debe contener al menos un número.")
     .oneOf(
       [yup.ref("password")],
-      "Las contraseñas no coinciden, por favor verificar"
+      "Las contraseñas no coinciden, por favor verificar la información."
     ),
 });
 
