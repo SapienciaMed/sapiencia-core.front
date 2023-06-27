@@ -1,4 +1,14 @@
 .spc-common-table {
+  .p-datatable { 
+    height: 50vh;
+    overflow: auto;
+  }
+  .table-previus:after {
+    content: "Ant";
+  }
+  .table-next:after {
+    content: "Sig";
+  }
   table {
     border-collapse: collapse;
 
@@ -64,8 +74,7 @@
   $height: null;
   $padding: 20px 0px;
   @include card-component($width, $height, $padding);
-  max-height: 100%;
-  overflow: auto;
+  height: auto;
 
   .title-area {
     display: flex;
@@ -92,6 +101,12 @@
 }
 
 @media (min-width: 1024px) {
+  .table-previus:after {
+    content: "Anterior" !important;
+  }
+  .table-next:after {
+    content: "Siguiente" !important;
+  }
   .spc-common-table {
     table {
       border: 1px solid #e9e9e9;
@@ -132,8 +147,6 @@
     $height: null;
     $padding: 20px;
     @include card-component($width, $height, $padding);
-    max-height: 100%;
-    overflow: auto;
   
     .title-area {
       display: flex;

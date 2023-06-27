@@ -3,24 +3,30 @@ import { ButtonComponent, FormComponent, InputComponent, TransferBoxComponent } 
 import { EDirection } from "../../../common/constants/input.enum";
 import { useRoleData } from "../hooks/role-crud.hook";
 import SelectApplicationComponent from "../components/select-application.component";
+import { useParams } from "react-router-dom";
 
-interface IAppProps { }
+interface IAppProps {
+    action: "new" | "edit";
+ }
 
-function RoleCrudPage(props: IAppProps) {
+function RoleCrudPage({ action }: IAppProps) {
     return (
         <div className="role-form">
             <SelectApplicationComponent />
-            <RoleForm />
+            <RoleForm action={action}/>
         </div>
     )
 }
 
-function RoleForm() {
-    const { optionsTransfer, onSubmitRole, onCancel, register, errors, setValueRegister } = useRoleData();
+function RoleForm({ action }: IAppProps) {
+    const { id: roleId } = useParams();
+    const { optionsTransfer, onSubmitNewRole, onSubmitEditRole, onCancelNew, onCancelEdit, register, errors, setValueRegister, roleData, transferAvailableData, transferSelectedData } = useRoleData(roleId);
     return (<Fragment>
-        <FormComponent action={onSubmitRole}>
+        <FormComponent action={action == "new" ? onSubmitNewRole : onSubmitEditRole}>
             <div className="card-form">
-                Roles
+                <label className="text-main biggest bold">
+                    {action == "new" ? "Crear rol" : "Editar rol"}
+                </label>
                 <div className="card-form mobile role-information-container">
                     <InputComponent
                         idInput="nombreRol"
@@ -31,6 +37,7 @@ function RoleForm() {
                         classNameLabel="text-black biggest bold"
                         direction={EDirection.row}
                         errors={errors}
+                        value={roleData?.name}
                     />
                     <InputComponent
                         idInput="descripcionRol"
@@ -41,21 +48,22 @@ function RoleForm() {
                         classNameLabel="text-black biggest bold"
                         direction={EDirection.row}
                         errors={errors}
+                        value={roleData?.description}
                     />
                 </div>
-                <label className="text-main biggest bold">
+                <label className="text-main biggest bold label-transfer-role">
                     Opciones y privilegios de rol
                 </label>
                 <hr />
                 <div>
-                    <TransferBoxComponent idInput="accionesRol" data={optionsTransfer} register={register} setValueRegister={setValueRegister} />
+                    <TransferBoxComponent idInput="accionesRol" data={optionsTransfer} register={register} setValueRegister={setValueRegister} available={transferAvailableData} selected={transferSelectedData}/>
                 </div>
                 <div className="role-action-buttons">
                     <ButtonComponent
                         className="button-main small hover-three"
                         value="Cancelar"
                         type="button"
-                        action={onCancel}
+                        action={action == "new" ? onCancelNew : onCancelEdit}
                     />
                     <ButtonComponent
                         className="button-main small hover-three"

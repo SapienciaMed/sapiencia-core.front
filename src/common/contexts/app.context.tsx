@@ -17,7 +17,6 @@ interface IAppContext {
   setMessage: Dispatch<SetStateAction<IMessage>>;
   application: IMenuAccess;
   setApplication: Dispatch<SetStateAction<IMenuAccess>>;
-  
 }
 interface IProps {
   children: ReactElement | ReactElement[];

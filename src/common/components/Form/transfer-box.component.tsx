@@ -9,17 +9,24 @@ interface ITransferProps<T> {
     data: ITransferBoxTemplate[];
     register: UseFormRegister<T>;
     setValueRegister: UseFormSetValue<T>;
+    available?: ITransferBoxTemplate[];
+    selected?: ITransferBoxTemplate[];
 }
 
-export function TransferBoxComponent({ idInput, data, register, setValueRegister }: ITransferProps<any>): React.JSX.Element {
+export function TransferBoxComponent({ idInput, data, register, setValueRegister, available=[], selected=[] }: ITransferProps<any>): React.JSX.Element {
     const [selectedItems, setSelectedItems] = useState<ITransferBoxTemplate[]>([]);
     const [availableItems, setAvailableItems] = useState<ITransferBoxTemplate[]>([]);
     const [stateSelected, setStateSelected] = useState({});
     const [stateAvailable, setStateAvailable] = useState({});
 
     useEffect(() => {
-        setAvailableItems(data);
+        if(available.length == 0 && selected.length == 0) setAvailableItems(data);
     }, [data]);
+
+    useEffect(() => {
+        if(available.length != 0) setAvailableItems(available);
+        if(selected.length != 0) setSelectedItems(selected);
+    }, [available, selected])
 
     const handleSelectItem = () => {
         const keys = Object.keys(stateSelected);

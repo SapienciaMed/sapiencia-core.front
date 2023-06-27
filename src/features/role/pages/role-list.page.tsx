@@ -1,12 +1,17 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import {
   ITableAction,
   ITableElement,
 } from "../../../common/interfaces/table.interfaces";
-import { IRole } from "../role.interfaces";
+import { IRole } from "../../../common/interfaces/role.interface";
 import TableComponent from "../../../common/components/table.component";
 import iconCreate from "../../../public/images/icons/icon-create.png";
 import { useNavigate } from "react-router-dom";
+import SelectApplicationComponent from "../components/select-application.component";
+import { AppContext } from "../../../common/contexts/app.context";
+import useRoleService from "../hooks/role-service.hook";
+import { EResponseCodes } from "../../../common/constants/api.enum";
+import DetailsComponent from "../../../common/components/details.component";
 
 interface IAppProps { }
 
@@ -14,11 +19,13 @@ function RoleListPage(props: IAppProps) {
   // Declaraciones
   const tableComponentRef = useRef(null);
   const navigate = useNavigate();
+  const { application, setMessage } = useContext(AppContext);
+  const { DeleteRole } = useRoleService();
 
   // Effect que inicia la carga de datos
   useEffect(() => {
-    loadTableData();
-  }, []);
+    if(application.id) loadTableData({aplicationId: application.id});
+  }, [application]);
 
   // Constantes
   const tableColumns: ITableElement<IRole>[] = [
@@ -43,19 +50,63 @@ function RoleListPage(props: IAppProps) {
     {
       icon: "Detail",
       onClick: (row) => {
-        console.log(row);
+        const rows = [
+          {
+            title: "Id",
+            value: `${row.id}`
+          },
+          {
+            title: "Nombre",
+            value: `${row.name}`
+          },
+          {
+            title: "Descripción",
+            value: `${row.description}`
+          }
+        ]
+        setMessage({
+          title: "Detalles",
+          show: true,
+          OkTitle: "Aceptar",
+          description: <DetailsComponent rows={rows} />
+        })
       },
     },
     {
       icon: "Edit",
       onClick: (row) => {
-        console.log(row);
+        navigate(`./edit/${row.id}`);
       },
     },
     {
       icon: "Delete",
       onClick: (row) => {
-        console.log(row);
+        setMessage({
+          title: "Eliminar registro",
+          description: `¿Estas seguro que deseas eliminar el rol "${row.name}"?`,
+          show: true,
+          cancelTitle: "Cancelar",
+          OkTitle: "Aceptar",
+          onCancel: () => {
+            setMessage({});
+          },
+          onOk: () => {
+            DeleteRole(row.id).then(response => {
+              if(response.operation.code === EResponseCodes.OK) {
+                setMessage({
+                  title: "¡Registro eliminado!",
+                  show: true,
+                  OkTitle: "Aceptar",
+                  onOk: () => {
+                    setMessage({});
+                  }
+                })
+                loadTableData({aplicationId: application.id})
+              }
+            });
+            
+          }
+        })
       },
     },
   ];
@@ -69,6 +120,7 @@ function RoleListPage(props: IAppProps) {
 
   return (
     <div className="main-page full-height">
+      <SelectApplicationComponent />
       <div className="card-table">
         <div className="title-area">
           <div className="text-main biggest bold">Consultar rol</div>

@@ -12,7 +12,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
 import { roleValidator } from "../../../common/schemas";
-import { IRequestRole } from "../../../common/interfaces/role.interface";
+import { IRequestRole, IRole } from "../../../common/interfaces/role.interface";
 import { useForm } from "react-hook-form";
 import { AppContext } from "../../../common/contexts/app.context";
 import { EResponseCodes } from "../../../common/constants/api.enum";
@@ -26,14 +26,21 @@ interface IRoleForm {
   };
 }
 
-export function useRoleData() {
+export function useRoleData(roleId: string) {
   const [options, setOptions] = useState<IOption[]>([]);
+  const [roleData, setRoleData] = useState<IRole>(null);
   const [optionsTransfer, setOptionsTransfer] = useState<
     ITransferBoxTemplate[]
   >([]);
+  const [transferAvailableData, setTransferAvailableData] = useState<
+  ITransferBoxTemplate[]
+>([]);
+  const [transferSelectedData, setTransferSelectedData] = useState<
+  ITransferBoxTemplate[]
+>([]);
 
-  const { authorization, setMessage } = useContext(AppContext);
-  const { GetOptions, CreateRole } = useRoleService();
+  const { authorization, setMessage, application } = useContext(AppContext);
+  const { GetOptions, CreateRole, UpdateRole, GetRole } = useRoleService();
   const navigate = useNavigate();
   const resolver = useYupValidationResolver(roleValidator);
   const {
@@ -44,7 +51,38 @@ export function useRoleData() {
   } = useForm<IRequestRole>({ resolver });
 
   useEffect(() => {
-    GetOptions(1).then((response: ApiResponse<IOption[]>) => {
+    if(roleId) {
+      GetRole(parseInt(roleId)).then(response => {
+        if(response.operation.code === EResponseCodes.OK) {
+          const role = response.data;
+          const roleActions = role.actions.map(action => action);
+          const optionsAvailableTransfer: ITransferBoxTemplate[] = [];
+          const optionsSelectedTransfer: ITransferBoxTemplate[] = [];
+          optionsTransfer.forEach(obj => {
+            const filteredChildren = obj.children.filter(child => {
+              return roleActions.some(item => item.id === child.id);
+            });
+          
+            if (filteredChildren.length > 0) {
+              optionsSelectedTransfer.push({
+                ...obj,
+                children: filteredChildren
+              });
+            } else {
+              optionsAvailableTransfer.push(obj);
+            }
+          });
+          setRoleData(role);
+          setTransferAvailableData(optionsAvailableTransfer);
+          setTransferSelectedData(optionsSelectedTransfer);
+        };
+      });
+    }
+  }, [roleId, optionsTransfer]);
+
+  useEffect(() => {
+    if (!application.id) return;
+    GetOptions(application.id).then((response: ApiResponse<IOption[]>) => {
       if (response) {
         const optionResponse: ITransferBoxTemplate[] = response.data.map(
           (item): ITransferBoxTemplate => {
@@ -69,9 +107,9 @@ export function useRoleData() {
         setOptions(response.data);
       }
     });
-  }, []);
-
-  const onSubmitRole = handleSubmit(async (data: IRoleForm) => {
+  }, [application]);
+  
+  const onSubmitNewRole = handleSubmit(async (data: IRoleForm) => {
     const actionsSelected: IActions[] = [];
     data.accionesRol.selected.forEach((item) => {
       const optionSelected = options.find((option) => option.id === item.id);
@@ -84,7 +122,7 @@ export function useRoleData() {
     CreateRole({
       name: data.nombreRol,
       description: data.descripcionRol,
-      aplicationId: 1,
+      aplicationId: application.id,
       userCreate: authorization.user.numberDocument,
       actions: actionsSelected,
     }).then((response) => {
@@ -95,7 +133,7 @@ export function useRoleData() {
           show: true,
           OkTitle: "Aceptar",
           onOk: () => {
-            onCancel();
+            onCancelNew();
             setMessage({});
           }
         });
@@ -105,7 +143,7 @@ export function useRoleData() {
           description: response.operation.message,
           show: true,
           OkTitle: "Aceptar",
-          onOk: async () => {
+          onOk: () => {
             setMessage({});
           }
         });
@@ -113,16 +151,67 @@ export function useRoleData() {
     });
   });
 
-  const onCancel = () => {
+  const onSubmitEditRole = handleSubmit(async (data: IRoleForm) => {
+    const actionsSelected: IActions[] = [];
+    data.accionesRol.selected.forEach((item) => {
+      const optionSelected = options.find((option) => option.id === item.id);
+      optionSelected.actions
+        .filter((object) =>
+          item.children.some((filtro) => object.id === filtro.id)
+        )
+        .forEach((action) => actionsSelected.push(action));
+    });
+    UpdateRole(parseInt(roleId), {
+      name: data.nombreRol,
+      description: data.descripcionRol,
+      aplicationId: application.id,
+      userModify: authorization.user.numberDocument,
+      actions: actionsSelected,
+    }).then((response) => {
+      if (response.operation.code === EResponseCodes.OK) {
+        setMessage({
+          title: "¡Se ha completado el proceso!",
+          description: "Opciones y privilegios de rol, agregados a la lista correctamente",
+          show: true,
+          OkTitle: "Aceptar",
+          onOk: () => {
+            onCancelEdit();
+            setMessage({});
+          }
+        });
+      } else {
+        setMessage({
+          title: "Hubo un problema.",
+          description: response.operation.message,
+          show: true,
+          OkTitle: "Aceptar",
+          onOk: () => {
+            setMessage({});
+          }
+        });
+      }
+    });
+  });
+
+  const onCancelNew = () => {
     navigate("./../");
+  };
+
+  const onCancelEdit = () => {
+    navigate("./../../");
   };
 
   return {
     optionsTransfer,
-    onSubmitRole,
-    onCancel,
+    onSubmitNewRole,
+    onSubmitEditRole,
+    onCancelNew,
+    onCancelEdit,
     register,
     errors,
     setValueRegister,
+    roleData,
+    transferAvailableData,
+    transferSelectedData
   };
 }

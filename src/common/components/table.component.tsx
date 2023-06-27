@@ -2,13 +2,14 @@ import React, { useState, forwardRef, useImperativeHandle, useEffect } from "rea
 import { ITableAction, ITableElement } from "../interfaces/table.interfaces";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { Paginator, PaginatorPageChangeEvent } from "primereact/paginator";
+import { Paginator, PaginatorCurrentPageReportOptions, PaginatorNextPageLinkOptions, PaginatorPageChangeEvent, PaginatorPageLinksOptions, PaginatorPrevPageLinkOptions } from "primereact/paginator";
 import iconView from "../../public/images/icons/icon-view.png";
 import iconEdit from "../../public/images/icons/icon-edit.png";
 import iconDelete from "../../public/images/icons/icon-delete.png";
 import { IPagingData } from "../utils/api-response";
 import useCrudService from "../hooks/crud-service.hook";
 import { EResponseCodes } from "../constants/api.enum";
+import { classNames } from "primereact/utils";
 
 interface IProps<T> {
   url: string;
@@ -21,6 +22,47 @@ interface IProps<T> {
 interface IRef {
   loadData: (newSearchCriteria?: object) => void;
 }
+
+const template = {
+  layout: 'PrevPageLink PageLinks NextPageLink RowsPerPageDropdown CurrentPageReport',
+  PrevPageLink: (options: PaginatorPrevPageLinkOptions) => {
+    return (
+      <button type="button" className={classNames(options.className, 'border-round')} onClick={options.onClick} disabled={options.disabled}>
+        <span className="p-3 table-previus"></span>
+      </button>
+    );
+  },
+  NextPageLink: (options: PaginatorNextPageLinkOptions) => {
+    return (
+      <button type="button" className={classNames(options.className, 'border-round')} onClick={options.onClick} disabled={options.disabled}>
+        <span className="p-3 table-next"></span>
+      </button>
+    );
+  },
+  PageLinks: (options: PaginatorPageLinksOptions) => {
+    if ((options.view.startPage === options.page && options.view.startPage !== 0) || (options.view.endPage === options.page && options.page + 1 !== options.totalPages)) {
+      const className = classNames(options.className, { 'p-disabled': true });
+
+      return (
+        <span className={className} style={{ userSelect: 'none' }}>
+          ...
+        </span>
+      );
+    }
+
+    return (
+      <button type="button" className={options.className} onClick={options.onClick}>
+        {options.page + 1}
+      </button>
+    );
+  },
+  RowsPerPageDropdown: () => {
+    return null;
+  },
+  CurrentPageReport: () => {
+    return null
+  }
+};
 
 const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
   const { title, columns, actions, url } = props;
@@ -48,7 +90,7 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
     setLoading(true);
 
     if (newSearchCriteria) {
-      setSearchCriteria(searchCriteria);
+      setSearchCriteria(newSearchCriteria);
     }
 
     const body = newSearchCriteria || searchCriteria || {};
@@ -100,7 +142,7 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
   }
 
   useEffect(() => {
-    if(charged) loadData(undefined, page + 1);
+    if (charged) loadData(undefined, page + 1);
   }, [perPage, first, page])
 
   useEffect(() => {
@@ -111,6 +153,7 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
     }
   }, [])
 
+  
 
   return (
     <div className="spc-common-table">
@@ -133,7 +176,7 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
         ))}
 
         {actions && (
-          <Column		 
+          <Column
             className="spc-table-actions"
             header={
               <div>
@@ -156,6 +199,7 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
 
       <Paginator
         className="spc-table-paginator"
+        template={template}
         first={first}
         rows={perPage}
         totalRecords={resultData?.meta?.total || 0}
