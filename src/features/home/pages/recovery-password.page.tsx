@@ -54,18 +54,6 @@ const FormRecoveryPassword = (): React.JSX.Element => {
   // // Servicos
   const { recoveryPassword: recoveryPasswordService } = useAuthService();
 
-  // modal
-  const messageExito = {
-    title: "¡Correo enviado!",
-    description: "El correo se ha enviado exitosamente",
-    show: true,
-    OkTitle: "Aceptar",
-    onOk: async () => {
-      setMessage({});
-      navigate("../login");
-    },
-  };
-
   const resolver = useYupValidationResolver(recoveryPassword);
 
   const {
@@ -74,14 +62,6 @@ const FormRecoveryPassword = (): React.JSX.Element => {
     formState: { errors },
   } = useForm<IRequestRecoveryPassword>({ resolver });
 
-  // States
-  const [msgFailedRecovery, setMsgFailedRecovery] = useState<string>("");
-
-  useEffect(() => {
-    if (errors.email?.message || errors.numberDocument?.message)
-      setMsgFailedRecovery("");
-  }, [errors.email?.message || errors.numberDocument?.message]);
-
   // // Metodo que hace la peticion al api
   const onSubmitSignIn = handleSubmit(async (data) => {
     const { data: dataResponse, operation } = await recoveryPasswordService(
@@ -89,7 +69,26 @@ const FormRecoveryPassword = (): React.JSX.Element => {
     );
 
     if (operation.code === EResponseCodes.OK) {
-      setMessage(messageExito);
+      setMessage({
+        title: "¡Correo enviado!",
+        description: "El correo se ha enviado exitosamente",
+        show: true,
+        OkTitle: "Aceptar",
+        onOk: () => {
+          setMessage({});
+          navigate("../login");
+        },
+      });
+    } else {
+      setMessage({
+        title: "Ocurrio un error!",
+        description: operation.message,
+        show: true,
+        OkTitle: "Aceptar",
+        onOk: () => {
+          setMessage({});
+        },
+      });
     }
   });
 
