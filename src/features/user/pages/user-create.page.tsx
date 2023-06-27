@@ -1,75 +1,29 @@
-import React, { Fragment, useContext, useState } from "react";
+import React, { Fragment } from "react";
 import { FormComponent } from "../../../common/components/Form/form.component";
 import { InputComponent } from "../../../common/components/Form/input.component";
-import { useForm } from "react-hook-form";
-import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
-import { createUsers } from "../../../common/schemas";
 import { EDirection } from "../../../common/constants/input.enum";
-import useAuthService from "../../../common/hooks/auth-service.hook";
-import { EResponseCodes } from "../../../common/constants/api.enum";
 import { SelectComponent } from "../../../common/components/Form/select.component";
 import { InputGroupComponent } from "../../../common/components/Form/input-group.component";
 import { ButtonComponent } from "../../../common/components/Form/button.component";
-import { IUserCreate } from "../../../common/interfaces/user.interfaces";
-import { useUserService } from "../../../common/hooks/user-service.hook";
-import { AppContext } from "../../../common/contexts/app.context";
-import { useNavigate } from "react-router-dom";
-
-interface IFailedSignIn {
-  show: boolean;
-  msg: string;
-}
+import useCreateUserData from "../hooks/createUserData.hook";
 
 const CreateUserPage = () => {
-  const [objectSignInFailed, setObjectSignInFailed] = useState<IFailedSignIn>({
-    show: false,
-    msg: "",
-  });
-  const resolver = useYupValidationResolver(createUsers);
-  const { createUser } = useUserService();
-  const navigate = useNavigate();
-  const { setMessage, authorization } = useContext(AppContext);
   const {
-    handleSubmit,
+    genderList,
+    typeDocumentList,
+    onSubmitSignIn,
+    CancelFunction,
     register,
-    formState: { errors },
-  } = useForm<IUserCreate>({ resolver });
-
-  const onSubmitSignIn = handleSubmit(async (data: IUserCreate) => {
-    console.log(data);
-    console.log(authorization);
-    const user = {
-      names: data.names,
-      lastNames: data.lastNames,
-      typeDocument: data.typeDocument,
-      numberDocument: data.numberDocument,
-      email: data.email,
-      password: data.numberDocument,
-      userCreate: "test",
-      userModify: "test",
-    };
-    const res = await createUser(user);
-    if (res.operation.code == EResponseCodes.OK) {
-      setMessage({
-        OkTitle: "Aceptar",
-        description: "Se ha creado el usuario en el sistema de forma exitosa",
-        title: "Exito al crear usuario",
-        show: true,
-        type: EResponseCodes.OK,
-      });
-    } else {
-      setMessage({
-        type:EResponseCodes.FAIL,
-        title:"Fallo al crear Usuario",
-        description: res.operation.message,
-        show: true,
-        OkTitle: "Aceptar"
-      });
-    }
-  });
+    setTown,
+    setDeparment,
+    errors,
+    deparmentList,
+    townList,
+    neighborhoodList,
+  } = useCreateUserData();
   return (
     <Fragment>
-      <div className="full-height">
+      <div className="full-height container-form-grid">
         <div className="container-form">
           <h1 className="text-black huge ml-24px">Crear usuario del sistema</h1>
           <div>
@@ -79,9 +33,9 @@ const CreateUserPage = () => {
               action={onSubmitSignIn}
             >
               <div className="grid-form-4-container container-sections-forms ">
-                <legend className="grid-span-4-columns">
-                  {"Datos básicos"}
-                </legend>
+                <p className="grid-span-4-columns  text-black large bold mb-5px mt-5px">
+                  Datos básicos
+                </p>
                 <div className="form-group column">
                   <label className="text-black big bold" htmlFor="">
                     Documento de identidad
@@ -92,7 +46,7 @@ const CreateUserPage = () => {
                       register={register}
                       className="select-basic medium"
                       placeholder="Tipo"
-                      data={[{ name: "CC", value: "CC" }]}
+                      data={typeDocumentList ? typeDocumentList : []}
                       value={null}
                       classNameLabel="text-black big bold"
                       direction={EDirection.column}
@@ -154,7 +108,7 @@ const CreateUserPage = () => {
                   className="select-basic medium"
                   placeholder="Seleccionar"
                   label="G&eacute;nero"
-                  data={[{name:"masculino",value:"M"},{name:"femenino",value:"F"}]}
+                  data={genderList ? genderList : []}
                   value={null}
                   classNameLabel="text-black big bold"
                   direction={EDirection.column}
@@ -187,15 +141,17 @@ const CreateUserPage = () => {
               </div>
 
               <div className="grid-form-4-container container-sections-forms">
-                <legend className="grid-span-4-columns">
-                  {"Datos de ubicación"}
-                </legend>
+                <p className="grid-span-4-columns mb-5px mt-5px text-black large bold">
+                  Datos de ubicación
+                </p>
                 <SelectComponent
                   idInput="deparment"
                   register={register}
                   className="select-basic medium"
                   placeholder="Seleccione"
                   label="Departamento"
+                  data={deparmentList ? deparmentList : [{}]}
+                  setValue={setDeparment}
                   value={null}
                   classNameLabel="text-black big bold"
                   direction={EDirection.column}
@@ -207,6 +163,8 @@ const CreateUserPage = () => {
                   className="select-basic medium"
                   placeholder="Seleccione"
                   label="Municipio"
+                  data={townList ? townList : [{}]}
+                  setValue={setTown}
                   value={null}
                   classNameLabel="text-black big bold"
                   direction={EDirection.column}
@@ -218,7 +176,7 @@ const CreateUserPage = () => {
                   className="select-basic medium"
                   placeholder="Seleccione"
                   label="Barrio - opcional"
-                  data={[{ name: "Cédula de ciudadanía", value: "1" }]}
+                  data={neighborhoodList ? neighborhoodList : [{}]}
                   value={null}
                   classNameLabel="text-black big bold"
                   direction={EDirection.column}
@@ -265,17 +223,7 @@ const CreateUserPage = () => {
               value="cancelar"
               type="button"
               className="button-cancel-save large hover-three disabled-black"
-              action={() => setMessage({
-                show:true,
-                title:"Cancelar creación de usuario",
-                description:"¿Seguro que desea cancelar la creación de usuario?",
-                OkTitle:"Continuar",
-                cancelTitle:"Si,Cancelar",
-                onCancel() {
-                  navigate('/');
-                  setMessage((prev) => ({ ...prev, show: false }))
-                },
-              })}
+              action={() => CancelFunction()}
             />
             <ButtonComponent
               form="createUserForm"

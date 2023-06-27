@@ -4,7 +4,7 @@ import { EResponseCodes } from "../constants/api.enum";
 export interface IMessage {
   type?: EResponseCodes;
   title?: string;
-  description?: string | React.JSX.Element;
+  description?: string | JSXElement;
   show?: boolean;
   OkTitle?: string;
   cancelTitle?: string;
@@ -13,4 +13,14 @@ export interface IMessage {
   onClickOutClose?: boolean;
   onClose?: () => void;
 }
+
+export interface IGenericList {
+  id: number;
+  grouper: string;
+  itemCode: string;
+  itemDescription: string;
+  parentGrouper?: string;
+  parentItemCode?: string;
+}
+
 
