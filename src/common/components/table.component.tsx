@@ -111,11 +111,11 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
   function getIconElement(icon: string, element: "name" | "src") {
     switch (icon) {
       case "Detail":
-        return element == "name" ? "Detalle" : <FaEye fontSize="1.3em"/>;
+        return element == "name" ? "Detalle" : <FaEye className="button" fontSize="1.3em"/>;
       case "Edit":
-        return element == "name" ? "Editar" : <FaPencilAlt fontSize="1.3em"/>;
+        return element == "name" ? "Editar" : <FaPencilAlt className="button" fontSize="1.3em"/>;
       case "Delete":
-        return element == "name" ? "Eliminar" : <FaTrashAlt fontSize="1.3em"/>;
+        return element == "name" ? "Eliminar" : <FaTrashAlt className="button" fontSize="1.3em"/>;
       default:
         return "";
     }

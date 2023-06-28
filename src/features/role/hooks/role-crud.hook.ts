@@ -54,33 +54,42 @@ export function useRoleData(roleId: string) {
     if (roleId) {
       GetRole(parseInt(roleId)).then(response => {
         if (response.operation.code === EResponseCodes.OK) {
-          const role = response.data;
-          const roleActions = role.actions.map(action => action);
-          const optionsAvailableTransfer: ITransferBoxTemplate[] = [];
-          const optionsSelectedTransfer: ITransferBoxTemplate[] = [];
-          optionsTransfer.forEach(obj => {
-            const filteredChildren = obj.children.filter(child => {
-              return roleActions.some(item => item.id === child.id);
-            });
-
-            if (filteredChildren.length > 0) {
-              optionsSelectedTransfer.push({
-                ...obj,
-                children: filteredChildren
-              });
-            } else {
-              optionsAvailableTransfer.push(obj);
-            }
-          });
-          setRoleData(role);
-          setValueRegister("nombreRol", role.name);
-          setValueRegister("descripcionRol", role.description);
-          setTransferAvailableData(optionsAvailableTransfer);
-          setTransferSelectedData(optionsSelectedTransfer);
+          setRoleData(response.data);
         };
       });
     }
-  }, [roleId, optionsTransfer]);
+  }, [roleId]);
+
+  useEffect(() => {
+    if(!roleData) return;
+    const roleActions = roleData.actions.map(action => action);
+    const optionsAvailableTransfer: ITransferBoxTemplate[] = [];
+    const optionsSelectedTransfer: ITransferBoxTemplate[] = [];
+    optionsTransfer.forEach(obj => {
+      const filteredChildren = obj.children.filter(child => {
+        return roleActions.some(item => item.id === child.id);
+      });
+
+      if (filteredChildren.length > 0) {
+        optionsSelectedTransfer.push({
+          ...obj,
+          children: filteredChildren
+        });
+      }
+      if (filteredChildren.length < obj.children.length) {
+        optionsAvailableTransfer.push({
+          ...obj,
+          children: obj.children.filter(child => {
+            return !filteredChildren.some(item => item.key === child.key);
+          })
+        });
+      }
+    });
+    setValueRegister("nombreRol", roleData.name);
+    setValueRegister("descripcionRol", roleData.description);
+    setTransferAvailableData(optionsAvailableTransfer);
+    setTransferSelectedData(optionsSelectedTransfer);
+  }, [roleData, optionsTransfer]);
 
   useEffect(() => {
     if (!application.id) return;
@@ -113,7 +122,7 @@ export function useRoleData(roleId: string) {
 
   const onSubmitNewRole = handleSubmit(async (data: IRoleForm) => {
     setMessage({
-      title: "Editar",
+      title: "Guardar",
       description: "¿Estas segur@ de guardar la información en el sistema?",
       OkTitle: "Aceptar",
       cancelTitle: "Cancelar",
