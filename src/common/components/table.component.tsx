@@ -1,15 +1,24 @@
-import React, { useState, forwardRef, useImperativeHandle, useEffect } from "react";
+import React, {
+  useState,
+  forwardRef,
+  useImperativeHandle,
+  useEffect,
+} from "react";
 import { ITableAction, ITableElement } from "../interfaces/table.interfaces";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { Paginator, PaginatorNextPageLinkOptions, PaginatorPageChangeEvent, PaginatorPageLinksOptions, PaginatorPrevPageLinkOptions } from "primereact/paginator";
-// import iconEdit from "../../public/images/icons/icon-edit.png";
-// import iconDelete from "../../public/images/icons/icon-delete.png";
+import {
+  Paginator,
+  PaginatorNextPageLinkOptions,
+  PaginatorPageChangeEvent,
+  PaginatorPageLinksOptions,
+  PaginatorPrevPageLinkOptions,
+} from "primereact/paginator";
 import { IPagingData } from "../utils/api-response";
 import useCrudService from "../hooks/crud-service.hook";
 import { EResponseCodes } from "../constants/api.enum";
 import { classNames } from "primereact/utils";
-// import { FaPencilAlt, FaEye, FaTrashAlt } from "react-icons/Fa";
+import * as Icons from "react-icons/fa";
 
 interface IProps<T> {
   url: string;
@@ -24,34 +33,54 @@ interface IRef {
 }
 
 const template = {
-  layout: 'PrevPageLink PageLinks NextPageLink RowsPerPageDropdown CurrentPageReport',
+  layout:
+    "PrevPageLink PageLinks NextPageLink RowsPerPageDropdown CurrentPageReport",
   PrevPageLink: (options: PaginatorPrevPageLinkOptions) => {
     return (
-      <button type="button" className={classNames(options.className, 'border-round')} onClick={options.onClick} disabled={options.disabled}>
+      <button
+        type="button"
+        className={classNames(options.className, "border-round")}
+        onClick={options.onClick}
+        disabled={options.disabled}
+      >
         <span className="p-3 table-previus"></span>
       </button>
     );
   },
   NextPageLink: (options: PaginatorNextPageLinkOptions) => {
     return (
-      <button type="button" className={classNames(options.className, 'border-round')} onClick={options.onClick} disabled={options.disabled}>
+      <button
+        type="button"
+        className={classNames(options.className, "border-round")}
+        onClick={options.onClick}
+        disabled={options.disabled}
+      >
         <span className="p-3 table-next"></span>
       </button>
     );
   },
   PageLinks: (options: PaginatorPageLinksOptions) => {
-    if ((options.view.startPage === options.page && options.view.startPage !== 0) || (options.view.endPage === options.page && options.page + 1 !== options.totalPages)) {
-      const className = classNames(options.className, { 'p-disabled': true });
+    if (
+      (options.view.startPage === options.page &&
+        options.view.startPage !== 0) ||
+      (options.view.endPage === options.page &&
+        options.page + 1 !== options.totalPages)
+    ) {
+      const className = classNames(options.className, { "p-disabled": true });
 
       return (
-        <span className={className} style={{ userSelect: 'none' }}>
+        <span className={className} style={{ userSelect: "none" }}>
           ...
         </span>
       );
     }
 
     return (
-      <button type="button" className={options.className} onClick={options.onClick}>
+      <button
+        type="button"
+        className={options.className}
+        onClick={options.onClick}
+      >
         {options.page + 1}
       </button>
     );
@@ -60,8 +89,8 @@ const template = {
     return null;
   },
   CurrentPageReport: () => {
-    return null
-  }
+    return null;
+  },
 };
 
 const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
@@ -109,17 +138,24 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
 
   // Metodo que retorna el icono o nombre de la accion
   function getIconElement(icon: string, element: "name" | "src") {
-    return <div></div>
-    // switch (icon) {
-    //   case "Detail":
-    //     return element == "name" ? "Detalle" : <FaEye fontSize="1.3em"/>;
-    //   case "Edit":
-    //     return element == "name" ? "Editar" : <FaPencilAlt fontSize="1.3em"/>;
-    //   case "Delete":
-    //     return element == "name" ? "Eliminar" : <FaTrashAlt fontSize="1.3em"/>;
-    //   default:
-    //     return "";
-    // }
+    switch (icon) {
+      case "Detail":
+        return element == "name" ? "Detalle" : <Icons.FaEye fontSize="1.3em" />;
+      case "Edit":
+        return element == "name" ? (
+          "Editar"
+        ) : (
+          <Icons.FaPencilAlt fontSize="1.3em" />
+        );
+      case "Delete":
+        return element == "name" ? (
+          "Eliminar"
+        ) : (
+          <Icons.FaTrashAlt fontSize="1.3em" />
+        );
+      default:
+        return "";
+    }
   }
 
   // Metodo que genera el elemento del icono
@@ -144,17 +180,15 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
 
   useEffect(() => {
     if (charged) loadData(undefined, page + 1);
-  }, [perPage, first, page])
+  }, [perPage, first, page]);
 
   useEffect(() => {
     setCharged(true);
 
     return () => {
       setCharged(false);
-    }
-  }, [])
-
-  
+    };
+  }, []);
 
   return (
     <div className="spc-common-table">
