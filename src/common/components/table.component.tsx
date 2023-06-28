@@ -3,13 +3,13 @@ import { ITableAction, ITableElement } from "../interfaces/table.interfaces";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Paginator, PaginatorNextPageLinkOptions, PaginatorPageChangeEvent, PaginatorPageLinksOptions, PaginatorPrevPageLinkOptions } from "primereact/paginator";
-import iconEdit from "../../public/images/icons/icon-edit.png";
-import iconDelete from "../../public/images/icons/icon-delete.png";
+// import iconEdit from "../../public/images/icons/icon-edit.png";
+// import iconDelete from "../../public/images/icons/icon-delete.png";
 import { IPagingData } from "../utils/api-response";
 import useCrudService from "../hooks/crud-service.hook";
 import { EResponseCodes } from "../constants/api.enum";
 import { classNames } from "primereact/utils";
-import { FaPencilAlt, FaEye, FaTrashAlt } from "react-icons/Fa";
+// import { FaPencilAlt, FaEye, FaTrashAlt } from "react-icons/Fa";
 
 interface IProps<T> {
   url: string;
@@ -109,16 +109,17 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
 
   // Metodo que retorna el icono o nombre de la accion
   function getIconElement(icon: string, element: "name" | "src") {
-    switch (icon) {
-      case "Detail":
-        return element == "name" ? "Detalle" : <FaEye fontSize="1.3em"/>;
-      case "Edit":
-        return element == "name" ? "Editar" : <FaPencilAlt fontSize="1.3em"/>;
-      case "Delete":
-        return element == "name" ? "Eliminar" : <FaTrashAlt fontSize="1.3em"/>;
-      default:
-        return "";
-    }
+    return <div></div>
+    // switch (icon) {
+    //   case "Detail":
+    //     return element == "name" ? "Detalle" : <FaEye fontSize="1.3em"/>;
+    //   case "Edit":
+    //     return element == "name" ? "Editar" : <FaPencilAlt fontSize="1.3em"/>;
+    //   case "Delete":
+    //     return element == "name" ? "Eliminar" : <FaTrashAlt fontSize="1.3em"/>;
+    //   default:
+    //     return "";
+    // }
   }
 
   // Metodo que genera el elemento del icono
