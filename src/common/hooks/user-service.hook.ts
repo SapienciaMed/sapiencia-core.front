@@ -5,7 +5,7 @@ import { ApiResponse, IPagingData } from "../utils/api-response";
 import useCrudService from "./crud-service.hook";
 
 export function useUserService(token) {
-  const baseURL: string = "http://localhost:3333";
+  const baseURL: string = "http://localhost:4201";
   const userUrl: string = "/api/v1/user";
   const { get, post, put, deleted } = useCrudService(token, baseURL);
 
