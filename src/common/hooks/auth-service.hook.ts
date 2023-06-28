@@ -8,7 +8,7 @@ import { ApiResponse } from "../utils/api-response";
 import useCrudService from "./crud-service.hook";
 
 export function useAuthService() {
-  const baseURL: string = "http://localhost:3333";
+  const baseURL: string = "http://localhost:4201";
   const authUrl: string = "/api/v1/auth";
 
   const { get, post, put, deleted } = useCrudService(null, baseURL);
