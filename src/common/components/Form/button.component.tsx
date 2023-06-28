@@ -7,7 +7,7 @@ interface ILabelProps {
   action?: Function;
   id?: string;
   form?: string;
-  disabled?: true;
+  disabled?: boolean;
 }
 
 export function ButtonComponent({

@@ -20,6 +20,7 @@ const CreateUserPage = () => {
     deparmentList,
     townList,
     neighborhoodList,
+    sending
   } = useCreateUserData();
   return (
     <Fragment>
@@ -176,7 +177,7 @@ const CreateUserPage = () => {
                   className="select-basic medium"
                   placeholder="Seleccione"
                   label="Barrio - opcional"
-                  data={neighborhoodList ? neighborhoodList : [{}]}
+                  data={(neighborhoodList&&townList) ? neighborhoodList : [{}]}
                   value={null}
                   classNameLabel="text-black big bold"
                   direction={EDirection.column}
@@ -185,7 +186,7 @@ const CreateUserPage = () => {
                 <InputComponent
                   idInput="address"
                   className="input-basic medium"
-                  typeInput="number"
+                  typeInput="text"
                   label="Direcci&oacute;n"
                   register={register}
                   classNameLabel="text-black big bold"
@@ -224,12 +225,14 @@ const CreateUserPage = () => {
               type="button"
               className="button-cancel-save large hover-three disabled-black"
               action={() => CancelFunction()}
+              disabled = {sending}
             />
             <ButtonComponent
               form="createUserForm"
               value="guardar"
               type="submit"
               className="button-save large hover-three disabled-black"
+              disabled = {sending}
             />
           </div>
         </div>

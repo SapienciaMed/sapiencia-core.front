@@ -16,16 +16,16 @@ export default function useCreateUserData() {
   const [genderList, setGenderList] = useState([]);
   const [typeDocumentList, setTypeDocumentList] = useState([]);
   const [deparmentList, setDeparmentList] = useState([]);
-  const [deparment, setDeparment] = useState("")
+  const [deparment, setDeparment] = useState("");
   const [townList, setTownList] = useState([]);
-  const [town, setTown] = useState("") 
+  const [town, setTown] = useState("");
   const [neighborhoodList, setneighborhoodList] = useState([]);
+  const [sending, setSending] = useState(false);
 
   /*instances*/
-  const { getListByParent, getListByGroupers } =
-    useGenericListService();
+  const { getListByParent, getListByGroupers } = useGenericListService();
   const resolver = useYupValidationResolver(createUsers);
-  const token = window.localStorage.getItem('token');
+  const token = window.localStorage.getItem("token");
   const { createUser } = useUserService(token);
 
   const navigate = useNavigate();
@@ -75,29 +75,37 @@ export default function useCreateUserData() {
     getListByParent({ grouper: "DEPARTAMENTOS", parentItemCode: "COL" })
       .then((response: ApiResponse<IGenericList[]>) => {
         if (response && response?.operation?.code === EResponseCodes.OK) {
-          setDeparmentList(response.data.map((item)=>{
-            const list = {
-              name: item.itemDescription,
-              value: item.itemCode,
-            };
-            return list;
-          }))
-        }})
+          setDeparmentList(
+            response.data.map((item) => {
+              const list = {
+                name: item.itemDescription,
+                value: item.itemCode,
+              };
+              return list;
+            })
+          );
+        }
+      })
       .catch((e) => {});
   }, []);
 
   useEffect(() => {
+    setTown("");
     getListByParent({ grouper: "MUNICIPIOS", parentItemCode: deparment })
       .then((response: ApiResponse<IGenericList[]>) => {
         if (response && response?.operation?.code === EResponseCodes.OK) {
-          setTownList(response.data.map((item)=>{
-            const list = {
-              name: item.itemDescription,
-              value: item.itemCode,
-            };
-            return list;
-          }))
-        }})
+          setTownList(
+            response.data.map((item) => {
+              const list = {
+                name: item.itemDescription,
+                value: item.itemCode,
+              };
+
+              return list;
+            })
+          );
+        }
+      })
       .catch((err) => {});
   }, [deparment]);
 
@@ -105,19 +113,23 @@ export default function useCreateUserData() {
     getListByParent({ grouper: "BARRIOS", parentItemCode: town })
       .then((response: ApiResponse<IGenericList[]>) => {
         if (response && response?.operation?.code === EResponseCodes.OK) {
-          setneighborhoodList(response.data.map((item)=>{
-            const list = {
-              name: item.itemDescription,
-              value: item.itemCode,
-            };
-            return list;
-          }))
-        }})
+          setneighborhoodList(
+            response.data.map((item) => {
+              const list = {
+                name: item.itemDescription,
+                value: item.itemCode,
+              };
+              return list;
+            })
+          );
+        }
+      })
       .catch((err) => {});
-  }, [town]);
+  }, [town, deparment]);
 
   /*Functions*/
   const onSubmitSignIn = handleSubmit(async (data: IUserCreate) => {
+    setSending(true);
     const user = {
       names: data.names,
       lastNames: data.lastNames,
@@ -128,25 +140,31 @@ export default function useCreateUserData() {
       userCreate: authorization?.user?.names,
       userModify: authorization?.user?.names,
     };
-    const res = await createUser(user).then((response: ApiResponse<IUserCreate>) => {
-      if (response && response?.operation?.code === EResponseCodes.OK) {
-        setMessage({
-          OkTitle: "Aceptar",
-          description: "Se ha creado el usuario en el sistema de forma exitosa",
-          title: "Crear usuario",
-          show: true,
-          type: EResponseCodes.OK,
-          background:true
-        });
-      }}).catch((err) => {
+    const res = await createUser(user)
+      .then((response: ApiResponse<IUserCreate>) => {
+        if (response && response?.operation?.code === EResponseCodes.OK) {
+          setMessage({
+            OkTitle: "Aceptar",
+            description:
+              "Se ha creado el usuario en el sistema de forma exitosa",
+            title: "Crear usuario",
+            show: true,
+            type: EResponseCodes.OK,
+            background: true,
+          });
+          setSending(false);
+        }
+      })
+      .catch((err) => {
         setMessage({
           type: EResponseCodes.FAIL,
           title: "Crear Usuario",
           description: "El usuario ya se encuentra registrado en el sistema",
           show: true,
           OkTitle: "Aceptar",
-          background:true
+          background: true,
         });
+        setSending(false);
       });
   });
 
@@ -161,7 +179,7 @@ export default function useCreateUserData() {
         navigate("/");
         setMessage((prev) => ({ ...prev, show: false }));
       },
-      background:true,
+      background: true,
     });
   };
 
@@ -178,5 +196,6 @@ export default function useCreateUserData() {
     townList,
     neighborhoodList,
     errors,
+    sending,
   };
 }
