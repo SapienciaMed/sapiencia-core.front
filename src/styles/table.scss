@@ -100,6 +100,23 @@
   }
 }
 
+.card-user {
+  border: 1px solid #E2E2E2;
+  border-radius: 15px;
+  padding: 15px;
+  @include generate-flex-container(column, null, null, null, null, 8px);
+
+  .card-table-user{
+    @extend .card-table;
+    padding: 20px;
+  }
+
+  @media (max-width: 500px) {
+    padding: 4%;
+  }
+
+}
+
 @media (min-width: 1024px) {
   .table-previus:after {
     content: "Anterior" !important;

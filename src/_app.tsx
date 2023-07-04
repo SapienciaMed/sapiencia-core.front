@@ -28,6 +28,9 @@ function App() {
   const AuthGuardPublic = lazy(
     () => import("./common/components/Guard/auth-public-guard")
   );
+
+  const SeeUser = lazy(() => import("./features/user/pages/system-user"));
+
   return (
     <AppContextProvider>
       <ModalMessageComponent />
@@ -66,6 +69,7 @@ function App() {
               <Route path={"/core/roles/create"} element={<RoleCrud action="new"/>} />
               <Route path={"/core/roles/edit/:id"} element={<RoleCrud action="edit" />} />
               <Route path={"/core/users"} element={<CreateUser />} />
+              <Route path={"/core/usuarios"} element={ <SeeUser /> } />
             </Routes>
           </Suspense>
         </Router>

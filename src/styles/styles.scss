@@ -73,6 +73,11 @@
   flex-direction: row;
   align-items: center;
   height: 9vh;
+
+  @media (max-width: 500px) {
+    justify-content: center;
+  }
+
 }
 
 .select-applications {

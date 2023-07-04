@@ -79,6 +79,11 @@
   &.large {
     height: 3em;
   }
+
+  &::placeholder{
+    color: $color-black;
+  }
+
 }
 
 .input-group-basic {

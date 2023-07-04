@@ -67,3 +67,23 @@ export const roleValidator = yup.object({
   .string()
   .required("Inserta una descripción")
 });
+
+export const systemUserValidator = yup.object({
+  documentNumber: yup
+  .number()
+  .typeError("Solo se permiten numeros")
+  .required("Inserta un número de documento"),
+  names: yup
+  .string()
+  .required("Inserta un nombre"),
+  lastNames: yup
+  .string()
+  .required("Inserta un apellido"),
+  email: yup
+  .string()
+  .email("Correo no valido")
+  .required("El correo es obligatorio"),
+  profile: yup
+  .string()
+  .required("Inserta un perfil"),
+})
