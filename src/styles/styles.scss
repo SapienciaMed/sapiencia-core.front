@@ -81,7 +81,30 @@
 }
 
 .select-applications {
-  margin: 0px 0px 20px 0px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+
+  p {
+    font-family: "RubikMedium", sans-serif;
+    font-size: 1.1rem;
+    margin: auto 0px;
+    font-weight: bold;
+  }
+
+  .select-applications-component{
+    border: 1px solid #E2E2E2;
+    border-radius: 100px;
+    opacity: 1;
+    width: 323px;
+
+    &:hover{
+      border-color: #603CE6 !important;
+    }
+    
+  }
 }
 
 .role-form {
@@ -140,6 +163,7 @@
   grid-template-rows: 1fr 3em;
 }
 
+
 @media (min-width: 1024px) {
   .dashboard-margin {
     grid-template-rows: 16em 1fr;
@@ -169,11 +193,6 @@
       $cursor );
   }
 
-  .select-applications {
-    display: flex;
-    justify-content: flex-end;
-  }
-
   .role-form {
     padding: 2rem 4rem;
 
@@ -196,5 +215,18 @@
       display: contents;
       margin-bottom: 0em;
     }
+  }
+}
+
+@media (max-width: 1024px) {
+  .select-applications{
+    flex-direction: column;
+    align-items: normal;
+    gap: 6px;
+
+    .select-applications-component{
+      width: 100%;
+    }
+  
   }
 }

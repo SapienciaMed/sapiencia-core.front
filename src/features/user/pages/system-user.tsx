@@ -3,6 +3,7 @@ import { ButtonComponent, FormComponent, InputComponent } from '../../../common/
 import { EDirection } from '../../../common/constants/input.enum';
 import useSytemUser from '../hooks/useSytemUser.hook';
 import { camposFormularioConsultarUsuario } from '../../../common/form';
+import SelectApplicationComponent from '../../role/components/select-application.component';
 
 function SystemUser() {
 
@@ -10,12 +11,12 @@ function SystemUser() {
  
   return (
     <Fragment>
-
       <div className="main-page full-height">
-        <div className="card-user">
 
-        <div className="text-black large bold"> Consultar usuario </div>
-          
+        <SelectApplicationComponent />
+
+        <div className="card-user">
+          <div className="text-black large bold"> Consultar usuario </div>         
           <div className="card-table-user">
             <FormComponent id='useQueryForm' className="form-system-user-container" action={onSubmitSearch}>
               {
@@ -36,7 +37,6 @@ function SystemUser() {
               }
             </FormComponent>
           </div>
-
           <div className="container-button-bot">
             <div className="display-justify-space-between mr-24px">
               <ButtonComponent
@@ -55,8 +55,8 @@ function SystemUser() {
               />
             </div>
           </div>
-
         </div>
+
       </div>
     </Fragment>
   )
