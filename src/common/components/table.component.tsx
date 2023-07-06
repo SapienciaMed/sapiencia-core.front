@@ -24,6 +24,7 @@ import { EResponseCodes } from "../constants/api.enum";
 import { classNames } from "primereact/utils";
 import * as Icons from "react-icons/fa";
 import { Dropdown } from "primereact/dropdown";
+import { useWidth } from "../hooks/use-width";
 
 interface IProps<T> {
   url: string;
@@ -54,6 +55,7 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
   const [page, setPage] = useState<number>(0);
   const [first, setFirst] = useState<number>(0);
   const [searchCriteria, setSearchCriteria] = useState<object>();
+  const { width } = useWidth()
 
   // Metodo que hace la peticion para realizar la carga de datos
   async function loadData(
@@ -138,7 +140,7 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
       />
 
       {
-        document.body.offsetWidth > 460 ?
+        width > 560 ?
           <DataTable
             className="spc-table full-height"
             value={resultData?.array || []}
@@ -186,18 +188,18 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
 function getIconElement(icon: string, element: "name" | "src") {
   switch (icon) {
     case "Detail":
-      return element == "name" ? "Detalle" : <Icons.FaEye className="button grid-button" />;
+      return element == "name" ? "Detalle" : <Icons.FaEye className="button grid-button button-detail" />;
     case "Edit":
       return element == "name" ? (
         "Editar"
       ) : (
-        <Icons.FaPencilAlt className="button grid-button" />
+        <Icons.FaPencilAlt className="button grid-button button-edit" />
       );
     case "Delete":
       return element == "name" ? (
         "Eliminar"
       ) : (
-        <Icons.FaTrashAlt className="button grid-button" />
+        <Icons.FaTrashAlt className="button grid-button button-delete" />
       );
     default:
       return "";

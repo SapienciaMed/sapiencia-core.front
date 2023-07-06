@@ -4,6 +4,7 @@ import { EDirection } from '../../../common/constants/input.enum';
 import useSytemUser from '../hooks/useSytemUser.hook';
 import { camposFormularioConsultarUsuario } from '../../../common/form';
 import SelectApplicationComponent from '../../role/components/select-application.component';
+import SearchResults from './search-results';
 
 function SystemUser() {
 
@@ -51,12 +52,12 @@ function SystemUser() {
                 value="Buscar"
                 type="submit"
                 className="button-search"
-                disabled={!Object.values(watchedFields).every(Boolean)}
+                // disabled={!Object.values(watchedFields).every(Boolean)}
               />
             </div>
           </div>
+          <SearchResults/>
         </div>
-
       </div>
     </Fragment>
   )

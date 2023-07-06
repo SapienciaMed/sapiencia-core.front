@@ -2,6 +2,18 @@
   .grid-button {
     font-size: 1.6em;
   }
+
+  .button-detail {
+    filter: invert(42%) sepia(39%) saturate(6725%) hue-rotate(173deg) brightness(94%) contrast(96%);
+  }
+  .button-edit{
+    filter: invert(46%) sepia(75%) saturate(624%) hue-rotate(81deg) brightness(90%) contrast(100%);
+  }
+
+  .button-delete{
+    filter: invert(21%) sepia(99%) saturate(7500%) hue-rotate(3deg) brightness(103%) contrast(117%);
+  }
+
   .p-paginator {
     padding: 0px;
     .header-information {
@@ -156,6 +168,7 @@
   .card-table-user{
     @extend .card-table;
     padding: 20px;
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16), 0px 3px 5px 0px rgba(0, 0, 0, 0.16) inset !important;
   }
 
   @media (max-width: 500px) {
