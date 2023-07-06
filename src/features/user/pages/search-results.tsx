@@ -10,9 +10,9 @@ function SearchResults(){
   const tableComponentRef = useRef(null);
   const { application, setMessage } = useContext(AppContext);
 
-  useEffect(() => {
-    if(application.id) console.log({aplicationId: application.id});
-  }, [application]);
+  // useEffect(() => {
+  //   if(application.id) console.log({aplicationId: application.id});
+  // }, [application]);
 
   const tableColumns = [
     {
@@ -62,7 +62,7 @@ function SearchResults(){
    <div className='card-user'>
       <div className="card-form">
         <TableComponent
-          // ref={tableComponentRef}
+          ref={tableComponentRef}
           url={`${process.env.urlApiAuth}/api/v1/role/get-paginated`}
           columns={tableColumns}
           actions={tableActions}

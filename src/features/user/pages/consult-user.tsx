@@ -6,7 +6,7 @@ import { camposFormularioConsultarUsuario } from '../../../common/form';
 import SelectApplicationComponent from '../../role/components/select-application.component';
 import SearchResults from './search-results';
 
-function SystemUser() {
+function ConsultUser() {
 
   const { errors, watchedFields, reset, onSubmitSearch, register } = useSytemUser()
  
@@ -52,7 +52,7 @@ function SystemUser() {
                 value="Buscar"
                 type="submit"
                 className="button-search"
-                // disabled={!Object.values(watchedFields).every(Boolean)}
+                disabled={!Object.values(watchedFields).every(Boolean)}
               />
             </div>
           </div>
@@ -63,4 +63,4 @@ function SystemUser() {
   )
 }
 
-export default React.memo(SystemUser);
+export default React.memo(ConsultUser);

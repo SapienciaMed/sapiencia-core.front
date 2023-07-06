@@ -29,7 +29,7 @@ function App() {
     () => import("./common/components/Guard/auth-public-guard")
   );
 
-  const SeeUser = lazy(() => import("./features/user/pages/system-user"));
+  const ConsultUser = lazy(() => import("./features/user/pages/consult-user"));
 
   return (
     <AppContextProvider>
@@ -69,7 +69,7 @@ function App() {
               <Route path={"/core/roles/create"} element={<RoleCrud action="new"/>} />
               <Route path={"/core/roles/edit/:id"} element={<RoleCrud action="edit" />} />
               <Route path={"/core/users"} element={<CreateUser />} />
-              <Route path={"/core/usuarios"} element={ <SeeUser /> } />
+              <Route path={"/core/usuarios"} element={ <ConsultUser /> } />
             </Routes>
           </Suspense>
         </Router>
