@@ -30,7 +30,9 @@ function RecoveryPassword(): React.JSX.Element {
           <span onClick={() => navigate("../login")}>x</span>
         </div>
         <section className="container-form_recoveryPassword">
-          <label className="text-main biggest bold">Recuperar contraseña</label>
+          <label className="text-main text-center biggest bold">
+            Recuperar contraseña
+          </label>
           <p className="text-primary big not-margin-padding text-center">
             Por favor ingrese la siguiente información para recuperar su
             contraseña

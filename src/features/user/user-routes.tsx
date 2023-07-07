@@ -4,6 +4,7 @@ import PrivateRoute from "../../common/components/Guard/auth-private-guard";
 
 function UserRoutes() {
   const CreateUser = lazy(() => import("./pages/user-create.page"));
+  const ConsultUser = lazy(() => import("../../features/user/pages/consult-user"));
 
   return (
     <Routes>
@@ -15,6 +16,14 @@ function UserRoutes() {
             allowedAction={"USUARIOS_CREAR"}
           />
         }
+      />
+      <Route path={"/consultar"} 
+        element={ 
+          <PrivateRoute
+            element={<ConsultUser/>}
+            allowedAction={"USUARIOS_CONSULTAR"}
+          /> 
+        } 
       />
     </Routes>
   );

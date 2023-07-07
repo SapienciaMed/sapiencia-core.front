@@ -32,9 +32,11 @@ function SelectApplicationComponent() {
             setApplication(newApplication);
         }
     }, [applicationId]);
+
     return (
         <div className="select-applications">
-            <SelectComponent idInput="application" data={applicationsData} stateProps={stateProps}/>
+            <p>Aplicativo</p> 
+            <SelectComponent idInput="application" data={applicationsData} stateProps={stateProps} className='select-applications-component'/>
         </div>
     )
 }

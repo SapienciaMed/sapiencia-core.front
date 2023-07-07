@@ -35,6 +35,12 @@
   align-items: stretch;
 }
 
+.form-system-user-container{
+  @include generate-flex-container(null, null, null, center, null, 5px);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+}
+
 @media (max-width: 920px) {
   .grid-form-4-container {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -87,6 +93,10 @@
     padding-left: 16px;
     padding-right: 16px;
   }
+
+  .form-system-user-container{
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
 }
 
 @media (max-width: 580px) {
@@ -121,5 +131,11 @@
 
   .ant-steps-vertical {
     flex-direction: row;
+  }
+}
+
+@media (max-width: 350px){
+  .form-system-user-container{
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   }
 }

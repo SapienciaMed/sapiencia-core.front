@@ -1,8 +1,6 @@
 import React, { useContext, useRef } from "react";
 import { AppContext } from "../contexts/app.context";
 import useOnClickOutside from "../hooks/click-outside.hook";
-import cancelIcon from "../../public/images/icons/cancel.png";
-import okIcon from "../../public/images/icons/ok.png";
 
 function ModalMessageComponent(): React.JSX.Element {
   // Services
@@ -30,7 +28,7 @@ function ModalMessageComponent(): React.JSX.Element {
           >
             X
           </button>
-          <p className="text-black huge">{message?.title}</p>
+          <p >{message?.title}</p>
         </div>
         <div className="modal-content">
           {typeof message.description != "string" ? (
@@ -50,7 +48,6 @@ function ModalMessageComponent(): React.JSX.Element {
               }
             >
               {message.cancelTitle}
-              <img className="icons" src={cancelIcon} />
             </button>
           ) : (
             <></>
@@ -65,7 +62,6 @@ function ModalMessageComponent(): React.JSX.Element {
               }
             >
               {message.OkTitle}
-              <img className="icons" src={okIcon} />
             </button>
           ) : (
             <></>
