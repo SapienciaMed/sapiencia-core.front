@@ -17,7 +17,14 @@ function UserRoutes() {
           />
         }
       />
-      <Route path={"/consultar"} element={ <ConsultUser /> } />
+      <Route path={"/consultar"} 
+        element={ 
+          <PrivateRoute
+            element={<ConsultUser/>}
+            allowedAction={"USUARIOS_CONSULTAR"}
+          /> 
+        } 
+      />
     </Routes>
   );
 }
