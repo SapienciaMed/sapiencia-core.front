@@ -1,39 +1,42 @@
-
-import React, { useContext, useEffect, useRef } from 'react'
+import React from 'react'
 import TableComponent from '../../../common/components/table.component'
-import { ITableAction } from '../../../common/interfaces/table.interfaces';
-import { IRole } from '../../../common/interfaces/role.interface';
-import { AppContext } from '../../../common/contexts/app.context';
+import { ITableAction, ITableElement } from '../../../common/interfaces/table.interfaces';
+import { IUser } from '../../../common/interfaces/auth.interfaces';
 
-function SearchResults(){
+interface IProps{
+  tableComponentRef: React.MutableRefObject<any>
+}
+function SearchResults({ tableComponentRef }: IProps){
 
-  const tableComponentRef = useRef(null);
-  const { application, setMessage } = useContext(AppContext);
-
-  // useEffect(() => {
-  //   if(application.id) console.log({aplicationId: application.id});
-  // }, [application]);
-
-  const tableColumns = [
+  const tableColumns: ITableElement<IUser>[] = [
     {
-      fieldName: "idDocument",
+      fieldName: "numberDocument",
       header: "Doc. de identidad",
     },
     {
       fieldName: "name",
-      header: "Nombres y apellidos"
+      header: "Nombres y apellidos",
+      renderCell: (row) => <>{row.names} {row.lastNames}</>
     },
     {
       fieldName: "email",
       header: "Correo electrónico"
     },
     {
-      fieldName: "dateOfCreation",
-      header: "Fecha creación"
+      fieldName: "dateCreate",
+      header: "Fecha",
+      renderCell: (row) => {
+        const currentDate = new Date();
+        const result: string = row.profile?.map(item => (new Date(item.dateValidity) > currentDate) && "Vigente").join(", ") || "No asignado";
+        return <>{ result }</>
+      }
     },
     {
       fieldName: "profile",
-      header: "Perfil"
+      header: "Perfil",
+      renderCell(row) {
+        return row.profile?.length > 0 ? <> Vigente </> : <> No asignado </>
+      },
     }
   ];
 
@@ -52,23 +55,19 @@ function SearchResults(){
     },
   ];
 
-  function loadTableData(searchCriteria?: object): void {
-    if (tableComponentRef.current) {
-      tableComponentRef.current.loadData(searchCriteria);
-    }
-  }
-
   return (
-   <div className='card-user'>
-      <div className="card-form">
-        <TableComponent
-          ref={tableComponentRef}
-          url={`${process.env.urlApiAuth}/api/v1/role/get-paginated`}
-          columns={tableColumns}
-          actions={tableActions}
-        />
-      </div>
-   </div> 
+    <div className='card-user'>
+        <div className="card-form">
+          <TableComponent
+            ref={tableComponentRef}
+            url={`${process.env.urlApiAuth}/api/v1/user/search`}
+            columns={tableColumns}
+            actions={tableActions}
+            titleMessageModalNoResult='Consultar usuario'
+            isShowModal={true}
+          />
+        </div>
+    </div> 
   )
 }
 

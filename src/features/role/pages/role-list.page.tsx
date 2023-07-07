@@ -134,6 +134,7 @@ function RoleListPage(props: IAppProps) {
             url={`${process.env.urlApiAuth}/api/v1/role/get-paginated`}
             columns={tableColumns}
             actions={tableActions}
+            isShowModal={false}
           />
         </div>
       </div>

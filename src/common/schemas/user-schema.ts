@@ -70,20 +70,13 @@ export const roleValidator = yup.object({
 
 export const systemUserValidator = yup.object({
   documentNumber: yup
-  .number()
-  .typeError("Solo se permiten numeros")
-  .required("Inserta un número de documento"),
+  .string()
+  .matches(/^[0-9]+$/, "Solo se permiten numeros"),
   names: yup
-  .string()
-  .required("Inserta un nombre"),
+  .string(),
   lastNames: yup
-  .string()
-  .required("Inserta un apellido"),
+  .string(),
   email: yup
   .string()
-  .email("Correo no valido")
-  .required("El correo es obligatorio"),
-  profile: yup
-  .string()
-  .required("Inserta un perfil"),
+  .email("Correo no valido"),
 })

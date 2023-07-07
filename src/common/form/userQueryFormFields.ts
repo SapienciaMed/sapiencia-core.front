@@ -10,15 +10,6 @@ export const camposFormularioConsultarUsuario = [
     },
     {
       id: 2,
-      idInput: "profile",
-      typeInput: "text",
-      className: "input-basic",
-      placeholder: "",
-      label: "Perfil",
-      classNameLabel: 'text-black big bold',
-    },
-    {
-      id: 3,
       idInput: "email",
       typeInput: "text",
       className: "input-basic",
@@ -27,7 +18,7 @@ export const camposFormularioConsultarUsuario = [
       classNameLabel: 'text-black big bold',
     },
     {
-      id: 4,
+      id: 3,
       idInput: "names",
       typeInput: "text",
       className: "input-basic",
@@ -36,7 +27,7 @@ export const camposFormularioConsultarUsuario = [
       classNameLabel: 'text-black big bold',
     },
     {
-      id: 5,
+      id: 4,
       idInput: "lastNames",
       typeInput: "text",
       className: "input-basic",

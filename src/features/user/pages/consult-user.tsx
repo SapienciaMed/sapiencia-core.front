@@ -1,14 +1,14 @@
 import React, { Fragment } from 'react'
 import { ButtonComponent, FormComponent, InputComponent } from '../../../common/components/Form';
 import { EDirection } from '../../../common/constants/input.enum';
-import useSytemUser from '../hooks/useSytemUser.hook';
+import useConsultUser from '../hooks/useConsultUser.hook';
 import { camposFormularioConsultarUsuario } from '../../../common/form';
 import SelectApplicationComponent from '../../role/components/select-application.component';
 import SearchResults from './search-results';
 
 function ConsultUser() {
 
-  const { errors, watchedFields, reset, onSubmitSearch, register } = useSytemUser()
+  const { errors, tableComponentRef, reset, onSubmitSearch, register } = useConsultUser()
  
   return (
     <Fragment>
@@ -17,7 +17,8 @@ function ConsultUser() {
         <SelectApplicationComponent />
 
         <div className="card-user">
-          <div className="text-black large bold"> Consultar usuario </div>         
+          <div className="text-black large bold"> Consultar perfil </div> 
+                  
           <div className="card-table-user">
             <FormComponent id='useQueryForm' className="form-system-user-container" action={onSubmitSearch}>
               {
@@ -45,18 +46,17 @@ function ConsultUser() {
                 value="Limpiar campos"
                 type="button"
                 className="button-clean-fields bold"
-                action={() => reset()}
+                action={() =>reset()}
               />
               <ButtonComponent
                 form='useQueryForm'
                 value="Buscar"
                 type="submit"
                 className="button-search"
-                disabled={!Object.values(watchedFields).every(Boolean)}
               />
             </div>
           </div>
-          <SearchResults/>
+          <SearchResults tableComponentRef={tableComponentRef}/>
         </div>
       </div>
     </Fragment>

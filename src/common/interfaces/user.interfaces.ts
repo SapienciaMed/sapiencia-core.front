@@ -10,10 +10,10 @@ export interface IUserCreate {
     userCreate?: string;
   }
 
-export interface ISystemUser {
+export interface IConsultUser {
   id?: number,
   documentNumber: string,
-  profile: string,
+  profile?: string,
   email: string,
   names: string,
   lastNames: string

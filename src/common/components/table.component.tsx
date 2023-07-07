@@ -3,6 +3,7 @@ import React, {
   forwardRef,
   useImperativeHandle,
   useEffect,
+  useContext,
 } from "react";
 import { ITableAction, ITableElement } from "../interfaces/table.interfaces";
 import { DataTable } from "primereact/datatable";
@@ -25,6 +26,7 @@ import { classNames } from "primereact/utils";
 import * as Icons from "react-icons/fa";
 import { Dropdown } from "primereact/dropdown";
 import { useWidth } from "../hooks/use-width";
+import { AppContext } from "../contexts/app.context";
 
 interface IProps<T> {
   url: string;
@@ -32,6 +34,8 @@ interface IProps<T> {
   columns: ITableElement<T>[];
   actions?: ITableAction<T>[];
   searchItems?: object;
+  isShowModal: boolean,
+  titleMessageModalNoResult?: string
 }
 
 interface IRef {
@@ -39,13 +43,7 @@ interface IRef {
 }
 
 const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
-  const { title, columns, actions, url } = props;
-
-  // Declaraciones
-  const { post } = useCrudService(null, url);
-  useImperativeHandle(ref, () => ({
-    loadData: loadData,
-  }));
+  const { title, columns, actions, url, titleMessageModalNoResult, isShowModal } = props;
 
   // States
   const [charged, setCharged] = useState<boolean>(false);
@@ -56,6 +54,15 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
   const [first, setFirst] = useState<number>(0);
   const [searchCriteria, setSearchCriteria] = useState<object>();
   const { width } = useWidth()
+  const { setMessage } = useContext(AppContext);
+
+  const token = localStorage.getItem("token");
+
+  // Declaraciones
+  const { post } = useCrudService(token, url);
+  useImperativeHandle(ref, () => ({
+    loadData: loadData,
+  }));
 
   // Metodo que hace la peticion para realizar la carga de datos
   async function loadData(
@@ -78,6 +85,15 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
       setResultData(res.data);
     } else {
       // generar mensaje de error / advetencia
+    }
+    if (res.data.array.length <= 0 && isShowModal) {
+      setMessage({
+        title: `${titleMessageModalNoResult || ''}`,
+        show: true,
+        description: 'No hay resultado para la búsqueda',
+        OkTitle: "Aceptar",
+        background: true,
+      })
     }
     setLoading(false);
   }
@@ -109,7 +125,8 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
             return (
               <div key={item} className="item-value-container">
                 <p className="text-black bold">{column.header}</p>
-                <p>{item[column.fieldName]}</p>
+                <p> { column.renderCell ? column.renderCell(item) : item[column.fieldName] } </p>
+                
               </div>
             )
           })}
@@ -140,7 +157,7 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
       />
 
       {
-        width > 560 ?
+        width > 830 ?
           <DataTable
             className="spc-table full-height"
             value={resultData?.array || []}

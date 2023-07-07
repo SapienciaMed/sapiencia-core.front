@@ -3527,7 +3527,7 @@
   color: #6c757d;
   min-width: 2.357rem;
   height: 2.357rem;
-  margin: 0px;
+  margin: 0 6px 0 6px;
   transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
   border-radius: 3px;
 }
