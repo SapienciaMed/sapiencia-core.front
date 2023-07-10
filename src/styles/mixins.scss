@@ -115,3 +115,28 @@
     }
   }
 }
+
+@mixin card-component-title-area( $display: flex, $justify-content: space-between, $flex-direction: row, $margin-bottom: 14px, $gap: 8px, $margin-top: 0px ){
+  display: $display;
+  justify-content: $justify-content;
+  flex-direction: $flex-direction;
+  margin-bottom: $margin-bottom;
+  
+  .title-button {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: $gap;
+    font: normal normal 500 1rem/120% "RubikMedium", sans-serif;
+    color: var(--highlight-bg);
+    margin-top: $margin-top;
+
+    svg {
+      width: 16px;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

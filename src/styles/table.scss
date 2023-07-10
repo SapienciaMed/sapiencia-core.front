@@ -1,24 +1,60 @@
 .spc-common-table {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
   .grid-button {
     font-size: 1.6em;
   }
 
   .button-detail {
     filter: invert(42%) sepia(39%) saturate(6725%) hue-rotate(173deg) brightness(94%) contrast(96%);
+    width: 24px;
+    height: 24px;
   }
   .button-edit{
     filter: invert(46%) sepia(75%) saturate(624%) hue-rotate(81deg) brightness(90%) contrast(100%);
+    width: 24px;
+    height: 24px;
   }
 
   .button-delete{
     filter: invert(21%) sepia(99%) saturate(7500%) hue-rotate(3deg) brightness(103%) contrast(117%);
+    width: 24px;
+    height: 24px;
   }
 
   .p-paginator {
     padding: 0px;
     .header-information {
       user-select: none;
-      margin: 1.2rem 0px 0.25rem 0.25rem;
+      margin: 1.2rem 0px 0.25rem 0.25rem;    
+    }
+
+    .p-dropdown {
+      cursor: pointer;
+      display: flex;
+      padding: 6px 8px;
+      justify-content: center;
+      align-items: center;
+      border-radius: var(--6, 8px);
+      border: 1px solid var(--border-border-input, #E2E2E2);
+      gap: 5px;
+
+      span{
+        display: flex;
+        flex-direction: column;
+        flex: 1 0 0;	
+        padding: 0;
+        font: normal normal 400 0.9rem/120% "RubikMedium", sans-serif;
+        color: #121212;
+      }
+      
+      .p-dropdown-trigger{
+        width: 16px;
+        height: 16px;
+      }
+      
     }
     .p-paginator-prev .p-paginator-next {
       margin: 0px !important;
@@ -30,6 +66,12 @@
   .p-datatable { 
     height: 50vh;
     overflow: auto;
+
+    border: 1px solid rgba(112, 112, 112, 0.1019607843);
+    border-radius: 13px;
+    box-shadow: inset 0px 3px 6px rgba(0, 0, 0, 0.1607843137), 0px 3px 6px rgba(0, 0, 0, 0.1607843137);
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    padding: 8px;
 
     .p-column-header-content {
       justify-content: center;
@@ -107,8 +149,7 @@
   .spc-table-action-button {
     display: flex;
     flex-direction: row;
-    gap: 13px;
-    margin-right: 30%;
+    gap: 10px;
     justify-content: center;
 
     img {
@@ -137,25 +178,7 @@
   height: auto;
 
   .title-area {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    margin-bottom: 14px;
-
-    .title-button {
-      display: flex;
-      align-items: center;
-      flex-direction: row;
-
-      img {
-        margin-left: 5px;
-        width: 22px;
-      }
-
-      &:hover {
-        cursor: pointer;
-      }
-    }
+    @include card-component-title-area()
   }
 }
 
@@ -165,6 +188,10 @@
   padding: 15px;
   @include generate-flex-container(column, null, null, null, null, 8px);
 
+  .title-area {
+    @include card-component-title-area()
+  }
+
   .card-table-user{
     @extend .card-table;
     padding: 20px;
@@ -173,6 +200,10 @@
 
   @media (max-width: 500px) {
     padding: 4%;
+
+    .title-area{
+      @include card-component-title-area(null, null ,column ,null, null, 10px)
+    }
   }
 
 }
@@ -214,7 +245,7 @@
     }
     .spc-table-action-button {
       margin-right: 0%;
-      gap: 30px;
+      gap: 12px;
     }
   }
 
@@ -234,25 +265,7 @@
     box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.1607843137), 0px 1px 1px rgba(0, 0, 0, 0.160784);
   
     .title-area {
-      display: flex;
-      justify-content: space-between;
-      flex-direction: row;
-      margin-bottom: 14px;
-  
-      .title-button {
-        display: flex;
-        align-items: center;
-        flex-direction: row;
-  
-        img {
-          margin-left: 5px;
-          width: 22px;
-        }
-  
-        &:hover {
-          cursor: pointer;
-        }
-      }
+      @include card-component-title-area()
     }
   }
 }
