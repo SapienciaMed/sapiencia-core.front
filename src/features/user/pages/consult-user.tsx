@@ -68,15 +68,16 @@ function ConsultUser() {
       <div className="main-page full-height">
         <SelectApplicationComponent />
         <div className="card-user">
-          <div className="title-area">
-            <div className="text-black large bold"> Consultar perfil </div> 
-
-            <div className="title-button text-three large" onClick={() => { navigate("/core/usuarios/crear") }}>
-              Crear Usuario <BiPlusCircle/>
-            </div>         
-          </div>
+          <div className="text-black large bold"> Usuario </div> 
                   
           <div className="card-table-user">
+            <div className="title-area">
+              <div className="text-black large bold"> Consultar usuario </div> 
+
+              <div className="title-button text-three large" onClick={() => { navigate("/core/usuarios/crear") }}>
+                Crear Usuario <BiPlusCircle/>
+              </div>         
+            </div>
             <FormComponent id='useQueryForm' className="form-system-user-container" action={onSubmitSearch}>
               {
                 camposFormularioConsultarUsuario.map((campo) => (

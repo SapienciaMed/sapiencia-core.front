@@ -28,7 +28,7 @@
     padding: 0px;
     .header-information {
       user-select: none;
-      margin: 1.2rem 0px 0.25rem 0.25rem;    
+      margin: 1.2rem 0.25rem 0.25rem 0;    
     }
 
     .p-dropdown {
@@ -219,7 +219,7 @@
     .p-paginator{
       justify-content: center;
       .header-information {
-        margin: 1.2rem 0px 0.25rem 2.25rem;
+        margin: 1.2rem 2.25rem 0.25rem 0;
       }
     }
     .grid-button {
