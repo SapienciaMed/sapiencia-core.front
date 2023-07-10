@@ -9,3 +9,12 @@ export interface IUserCreate {
     userModify?: string;
     userCreate?: string;
   }
+
+export interface IConsultUser {
+  id?: number,
+  documentNumber: string,
+  profile?: string,
+  email: string,
+  names: string,
+  lastNames: string
+}

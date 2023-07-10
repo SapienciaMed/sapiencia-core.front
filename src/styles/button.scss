@@ -175,6 +175,27 @@
 }
 }
 
+.button-clean-fields {
+  @include generate-button(null, #000000, transparent,none);
+}
+
+.button-search {
+  @include generate-button(30px, #fff, #603CE6, none);
+
+  margin: 0.5em;
+  width: 8em;
+  height: 2.5em;
+  font-size: 1rem;
+
+  &:disabled{
+    background-color: #DDDDDD;
+    color: #FFFFFF;
+    opacity: 1;
+    border: none
+  }
+
+}
+
 .button-save {
   @include generate-button(30px, #fff, $main-color, none);
 

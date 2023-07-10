@@ -124,6 +124,15 @@
       cursor: pointer;
       right: 15px;
     }
+
+    p{
+      font: normal normal 500 1.5rem/20px $font-family-main;
+      color: #533893;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-self: stretch;
+    }
   }
 
   .modal-content{
@@ -147,25 +156,19 @@
 }
 
 .button-ok {
-  font-size: 0;
-  font-weight: 0;
-  text-shadow: transparent;
-  color: transparent;
-  text-decoration: none;
-  width: 3rem;
-  background-color: transparent;
-  border:none;
+  @include generate-button(100px, #fff, #533893 , none);
+  min-width: 84px;
+  width: 35%;
+  height: 2.5em;
+  font-size: 1rem;
 }
 
 .button-cancel {
-  font-size: 0;
-  font-weight: 0;
-  text-shadow: transparent;
-  color: transparent;
-  text-decoration: none;
-  width: 3rem;
-  background-color: transparent;
-  border:none;
+  @include generate-button(100px, #533893, #fff, #533893 solid 1px);
+  width: 35%;
+  height: 2.5em;
+  min-width: 84px;
+  font-size: 1rem;
 }
 
 .icons{
@@ -174,12 +177,16 @@
 }
 
 .button-close {
-  @include generate-button(30px,$main-color,transparent, none);
+  @include generate-button(30px,#533893,transparent, none);
 
   &.tiny {
-    height: 2.5em;
-    font-size: 1rem;
+    height: auto;
+    font-size: 1.5rem;
     font-weight: bold;
+
+    @media (max-width: 500px) {
+      font-size: 1.2rem;
+    }
   }
 
   &.small {
@@ -217,15 +224,58 @@
   }
 }
 
+.content-breadcrumb{
+  background: #533893;
+  padding: 0 14px;
+  gap: 4px;
+  
+  #breadcrumb {
+    height: 22px;
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    p{
+      color: #fff;
+      display: flex;
+      width: 16px;
+      height: 16px;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+  }
+
+  li {
+    float: left;
+    display: flex;
+    flex-direction: row;
+
+    a{
+      display: block;
+      text-decoration: none;
+      position: relative;
+      padding: 0 6px;
+      text-align: center;
+      color: #fff;
+      font-family: "RubikMedium", sans-serif;
+      font-size: 0.8rem;
+      font-weight: 400;
+      line-height: 120%;
+    }
+  }
+}
 
 /***Desktop***/
 @media (min-width: 1024px) {
  
   .modal-container {
     position: relative;
-    padding: 1rem;
-    width: 28.1875rem;
-    height: 13rem;
+    padding: 1.5rem;
+    width: 31.1875rem;
+    height: 16rem;
     overflow-y: auto;
     background-color: #fff;
     border-radius: 10px;
@@ -235,12 +285,24 @@
     justify-content: space-around;
   
     .modal-header{
-      text-align: center;
-      margin: -1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      align-self: stretch;
+
+      p{
+        font: normal normal 500 2rem/20px $font-family-main;
+        color: #533893;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-self: stretch;
+      }
   
       .close {
         position: absolute;
-        top: 9px;
+        top: 16px;
         cursor: pointer;
         right: 15px;
       }
@@ -271,7 +333,7 @@
   }
 
   .button-ok {
-    @include generate-button(30px, #fff, $main-color , none);
+    @include generate-button(100px, #fff, #533893 , none);
   
     &.tiny {
       width: 20%;
@@ -318,7 +380,7 @@
   }
   
   .button-cancel {
-    @include generate-button(30px, $main-color, #fff,$main-color solid 1px);
+    @include generate-button(100px, #533893, #fff, #533893 solid 1px);
   
     &.tiny {
       width: 20%;
@@ -366,11 +428,11 @@
   }
   
   .button-close {
-    @include generate-button(30px, $main-color,transparent, none);
+    @include generate-button(30px, #533893,transparent, none);
   
     &.tiny {
-      height: 2.5em;
-      font-size: 1rem;
+      height: auto;
+      font-size: 1.7rem;
       font-weight: bold;
     }
   

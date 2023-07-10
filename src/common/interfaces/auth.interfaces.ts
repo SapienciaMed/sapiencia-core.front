@@ -42,7 +42,20 @@ export interface IUser {
   dateModify?: Date;
   userCreate: string;
   dateCreate?: Date;
+  profile?: IProfile[]
 }
+
+export interface IProfile {
+  id?: number;
+  userId: number;
+  aplicationId: number;
+  dateValidity: Date;
+  userModify?: number;
+  modifyDate?: Date;
+  userCreate?: string;
+  dateCreate?: Date;
+}
+
 
 export interface IRequestRecoveryPassword {
   numberDocument: string;
