@@ -125,7 +125,7 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
             return (
               <div key={item} className="item-value-container">
                 <p className="text-black bold">{column.header}</p>
-                <p> { column.renderCell ? column.renderCell(item) : item[column.fieldName] } </p>
+                <p className="text-item"> { column.renderCell ? column.renderCell(item) : item[column.fieldName] } </p>
                 
               </div>
             )
