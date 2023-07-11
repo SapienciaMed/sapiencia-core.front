@@ -23,4 +23,5 @@ export interface IRoleFilters {
 export interface IRequestRole {
     nombreRol: string;
     descripcionRol: string;
+    accionesRol: object;
 }
