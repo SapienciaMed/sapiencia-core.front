@@ -79,6 +79,7 @@
 .text-black {
   font-family: $font-family-main;
   color: $color-black;
+  text-align: left;
 
   &.tiny {
     font-size: 0.6em;
@@ -147,6 +148,13 @@
 
   &.huge {
     font-size: 2em;
+  }
+}
+
+@media (max-width: 380px) {
+  .text-item{
+    font-size: 0.7rem;
+    word-break: break-all;
   }
 }
 
