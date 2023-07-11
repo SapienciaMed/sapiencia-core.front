@@ -93,7 +93,7 @@
       $padding: 0px;
       @include card-component($width, $height, $padding);
       .card-header {
-        padding: 20px;
+        padding: 5%;
         height: 80%;
         .item-value-container {
           display: flex;
@@ -105,7 +105,7 @@
         display: flex;
         justify-content: space-around;
         border-top: solid 1px rgba(0, 0, 0, 0.1607843137);
-        padding: 20px;
+        padding: 5%;
         height: 20%;
       }
     }
