@@ -61,6 +61,7 @@
     "@types/systemjs": "^6.1.1",
     "@types/webpack-env": "^1.16.2",
     "axios": "^1.4.0",
+    "compression-webpack-plugin": "^10.0.0",
     "luxon": "^3.3.0",
     "primereact": "^9.5.0",
     "react": "^17.0.2",

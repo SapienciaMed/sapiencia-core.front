@@ -2,6 +2,8 @@
 const { merge } = require("webpack-merge");
 const singleSpaDefaults = require("webpack-config-single-spa-react-ts");
 const Dotenv = require("dotenv-webpack");
+const TerserPlugin = require('terser-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = (webpackConfigEnv, argv) => {
   const defaultConfig = singleSpaDefaults({
@@ -31,6 +33,26 @@ module.exports = (webpackConfigEnv, argv) => {
         },
       ],
     },
-    plugins: [new Dotenv()],
+    optimization: {
+      minimizer: [
+        new TerserPlugin({
+          terserOptions: {
+            compress: {
+              drop_console: true,
+            },
+          },
+        }),
+      ],
+    },
+    plugins: [
+      new Dotenv(),
+      new CompressionPlugin({
+        filename: '[path][base].gz',
+        algorithm: 'gzip',
+        test: /\.js$|\.css$/,
+        threshold: 10240,
+        minRatio: 0.8,
+      }),
+    ],
   });
 };
