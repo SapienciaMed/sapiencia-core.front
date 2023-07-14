@@ -7,35 +7,35 @@
 }
 
 .dashboard-margin {
-  display: grid;
-  grid-template-rows: 14em 1fr;
-  justify-content: center;
-  grid-template-columns: 1fr;
-  align-items: center;
-  font-size: 11px;
+  height: 100%;
+  background-image: none;
+  padding: 37px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 9%;
 }
 
 .welcome-container {
   display: grid;
   align-items: center;
   grid-template-rows: 1fr 1fr;
-  margin: 0px 1rem;
-  gap: 1em;
-  height: 65%;
+
+  img{
+    margin-left: 10px;
+    width: 90px;
+  }
 }
 
 .applications-cards {
-  padding: 25px 0px;
-  background-image: url($base-path-url-image + "login-visualization-main.png");
-  height: 100%;
   overflow: auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-content: flex-start;
-  gap: 2em;
-  $card-height: 14em;
-  $card-width: 17em;
+  gap: 1em;
+  padding: 20px;
+  $card-height: 9em;
+  $card-width: 11em;
   $margin-horizontal: 2em;
   $margin-vertical: 2em;
   $columns: repeat(auto-fit, $card-width);
@@ -166,19 +166,26 @@
 
 @media (min-width: 1024px) {
   .dashboard-margin {
-    grid-template-rows: 16em 1fr;
-    font-size: inherit;
+    background-image: url('../public/images/application-background-dashboard.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 45px 25px;
   }
 
   .welcome-container {
     margin: 0px 0px;
     gap: 0px;
+
+    img{
+      width: 100px;
+    }
+
   }
 
   .applications-cards {
     justify-content: center;
-    $card-height: 14em;
-    $card-width: 19em;
+    $card-height: 11em;
+    $card-width: 16em;
     $margin-horizontal: 4em;
     $margin-vertical: 2em;
     $columns: repeat(auto-fit, $card-width);

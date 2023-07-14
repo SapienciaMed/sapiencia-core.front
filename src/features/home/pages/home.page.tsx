@@ -19,8 +19,8 @@ function HomePage(props: IAppProps) {
     };
   }, []);
   return (
-    <div className="dashboard-margin full-height">
-      <WelcomeContainerComponent />
+    <div className="dashboard-margin">
+      <WelcomeContainerComponent /> 
       <ApplicationsContainerComponent />
     </div>
   );
