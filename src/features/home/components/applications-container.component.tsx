@@ -15,19 +15,19 @@ function ApplicationCardComponent() {
         applicationsFilter.map((app: IMenuAccess) => {
           let imagePath: string | undefined;
           try {
-            imagePath = require(`../../../public/images/application-image-${app.id}.png`);
+            imagePath = require(`../../../public/images/icons-aplication/application-icon-${app.id}.svg`);
           } catch {
             imagePath = require('../../../public/images/application-image-default.png');
           }
           return (
-            <div className="card-body" key={app.id} onClick={() => {navigate(app.url)}}>
+            <div className="card-body" key={app.id}>
               <div className="card-header">
                 <img
                   src={imagePath}
                 />
               </div>
               <div className="card-footer">
-                <p className="text-black biggest text-center bold">{app.name}</p>
+                <p className="text-dasboard big text-center">{app.name}</p>
               </div>
             </div>
           );

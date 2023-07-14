@@ -205,3 +205,62 @@
     font-size: 2em;
   }
 }
+
+.text-dasboard{
+  font-family: $font-family-main;
+  color: $secondary-color;
+  
+  &.tiny {
+    font-size: 0.5rem;
+  }
+
+  &.small {
+    font-size: 0.6rem;
+  }
+
+  &.medium {
+    font-size: 0.7rem;
+  }
+
+  &.big {
+    font-size: 0.9rem;
+    margin: 5px;
+  }
+
+  &.biggest {
+    font-size: 1.15rem;
+  }
+
+  &.large {
+    font-size: 1.2rem;
+  }
+
+  &.extra-large {
+    font-size: 1.7rem;
+  }
+
+  &.huge {
+    font-size: 2rem;
+  }
+
+}
+
+@media (max-width: 1023px) {
+  .text-dasboard{
+    color: $main-color;
+
+    &.big {
+      font-size: 0.75rem;
+      margin: 5px;
+      color: #3b3b3b;
+    }
+
+    &.large {
+      font-size: 1rem;
+    }
+
+    &.huge {
+      font-size: 1.8rem;
+    }
+  }
+}
