@@ -20,7 +20,7 @@ function ApplicationCardComponent() {
             imagePath = require('../../../public/images/application-image-default.png');
           }
           return (
-            <div className="card-body" key={app.id}>
+            <div className="card-body" key={app.id} onClick={() => {navigate(app.url)}}>
               <div className="card-header">
                 <img
                   src={imagePath}
